@@ -3,15 +3,7 @@
 ## Usage
 
 ```bash
-(py311) ➜  tagmark git:(main) ✗ poetry run tagmark_cli --help                                      
-Usage: tagmark_cli [OPTIONS] COMMAND [ARGS]...
-
-Options:
-  --help  Show this message and exit.
-
-Commands:
-  convert  covert other format of bookmarks into Tagmark format(json-lines)
-(py311) ➜  tagmark git:(main) ✗ poetry run tagmark_cli convert --help
+(py311) ➜  tagmark git:(main) ✗ poetry run tagmark_cli convert --help                                                            
 Usage: tagmark_cli convert [OPTIONS]
 
   covert other format of bookmarks into Tagmark format(json-lines)
@@ -22,9 +14,16 @@ Options:
                                   format of the input file  [default:
                                   diigo_chrome]
   -o, --output-file-path FILE     output file path  [default:
-                                  ui/data/tagmark_ui_data.jsonl]
+                                  tagmark_ui_data.jsonl]
   -k, --keep_empty_keys BOOLEAN   whether keep keys with empty values
                                   [default: False]
+  -c, --condition-json-path FILE  json file containing the condition for
+                                  fitlering TagmarkItem  [default: /Users/pwn
+                                  fan/Desktop/Projects/tagmark/condition_exam
+                                  ple.json]
+  -b, --is-ban-condition BOOLEAN  If set to True, a TagmarkItem hits the
+                                  `condition` will be banned, or it will be
+                                  remained.  [default: True]
   -t, --github_token TEXT         the GITHUB_TOKEN to access Github API,
                                   default will read from the .env file of the
                                   root dir of this project
@@ -59,7 +58,8 @@ We welcome you to join the development of TagMark. Please see [contributing docu
 
 ## TODO
 
-* [ ] lib.data: skip dumping some tagmark item according to user input
+* [x] lib.data: skip dumping some tagmark item according to user input
 * [ ] lib.data: add github repo licence info into TagmarkItem
+* [ ] validate url availability and set TagmarkItem.valid according to the result
 
 [contributing-document-url]: https://github.com/pwnfan/tagmark/blob/main/.github/CONTRIBUTING.md

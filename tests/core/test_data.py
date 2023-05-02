@@ -122,6 +122,7 @@ class TestTagit:
 
         os.remove(output_path)
 
+
         # test keep_empty_keys==False
         output_path: Path = Path(f"/tmp/tagit_test_{time.time()}.jsonl")
         self.tagit.dump_to_json_lines(output_path=output_path, keep_empty_keys=False)
@@ -133,3 +134,44 @@ class TestTagit:
         assert "github_repo_info" not in dict_items[-1].keys()
 
         os.remove(output_path)
+
+
+        # test condition and ban_condition==True
+        output_path: Path = Path(f"/tmp/tagit_test_{time.time()}.jsonl")
+        self.tagit.dump_to_json_lines(
+            output_path=output_path, 
+            keep_empty_keys=False,
+            condition={
+                "tags": ["frontend", "xxx"],
+                "valid": True,
+            },
+            is_ban_condition=True,
+        )
+        dict_items: list[dict] = []
+
+        with open(output_path, "r") as _f:
+            for _line in _f:
+                dict_items.append(json.loads(_line.strip()))
+        assert len(dict_items) == 1
+        assert dict_items[0]['url'] == self.tagit.tagmark_items[-1].url
+        
+                
+        # test condition and ban_condition==False
+        output_path: Path = Path(f"/tmp/tagit_test_{time.time()}.jsonl")
+        self.tagit.dump_to_json_lines(
+            output_path=output_path, 
+            keep_empty_keys=False,
+            condition={
+                "tags": ["frontend", "xxx"],
+                "valid": True,
+            },
+            is_ban_condition=False,
+        )
+        dict_items: list[dict] = []
+
+        with open(output_path, "r") as _f:
+            for _line in _f:
+                dict_items.append(json.loads(_line.strip()))
+        assert len(dict_items) == 2
+        for _dict_item in dict_items:
+            assert _dict_item['url'] != self.tagit.tagmark_items[-1].url

@@ -20,7 +20,7 @@ Timestamp: type = NewType("Timestamp", float)
 class TagmarkItem:
     url: str
     id: int | None = None
-    valid: str = True
+    valid: bool = True
     title: str | None = None
     tags: list[str] = field(default_factory=list)
     description: str | None = None
@@ -53,6 +53,30 @@ class TagmarkItem:
                 if _v or keep_empty_keys:
                     dict_item[_k] = _v
         return dict_item
+
+    def hits_condition(self, condition: dict = {}):
+        if not condition:
+            return False
+        is_hit: bool = True
+        for _k, _v in condition.items():
+            _item_value = getattr(self, _k)
+            if (_item_value is None) and (_v is None):
+                is_hit = is_hit and True
+            if (type(_item_value) is bool) and (type(_v) is bool):
+                is_hit = is_hit and (_v == _item_value)
+            elif (
+                type(_item_value)
+                in (
+                    str,
+                    list,
+                )
+            ) and (type(_item_value) in (list, tuple, set)):
+                is_hit = is_hit and any(_x in _item_value for _x in _v)
+            else:
+                raise ValueError(
+                    f"type {type(_item_value)} with value {_v} is not supported in a condition."
+                )
+        return is_hit
 
 
 class Tagmark:
@@ -128,10 +152,37 @@ class Tagmark:
                 except Exception as err:
                     self._logger.warning(url=_tag_mark_item.url, msg=err, exc_info=True)
 
-    def dump_to_json_lines(self, output_path: Path, keep_empty_keys=False):
+    def dump_to_json_lines(
+        self,
+        output_path: Path,
+        keep_empty_keys=False,
+        condition: dict = {},
+        is_ban_condition=True,
+    ):
+        """
+        dump self.tagmark_items into a json-lines file
+
+        Args:
+            output_path (Path): output path of the json-lines file
+            keep_empty_keys (bool, optional): whether keep the keys with empty value when dumping.
+                Defaults to False.
+            condition (dict, optional): the condition for fitlering TagmarkItem. Defaults to {}.
+            is_ban_condition (bool, optional): If set to True, a TagmarkItem hits the `condition`
+                will be banned, or it will be remained. Defaults to True.
+        """
         if len(self.tagmark_items) > 0:
             with open(output_path, "w") as f:
                 f.writelines(
                     f"{json.dumps(_item.to_dict(keep_empty_keys=keep_empty_keys))}\n"
                     for _item in self.tagmark_items
+                    if (
+                        (
+                            is_ban_condition
+                            and (not _item.hits_condition(condition=condition))
+                        )
+                        or (
+                            (not is_ban_condition)
+                            and _item.hits_condition(condition=condition)
+                        )
+                    )
                 )

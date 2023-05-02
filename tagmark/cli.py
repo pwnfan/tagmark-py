@@ -1,4 +1,6 @@
 import os
+import json
+
 import click
 
 from pathlib import Path
@@ -6,7 +8,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 from tagmark.core.convert import BaseConverter
-from tagmark.tool.convert import diigo, tagmark as tagmark_
+from tagmark.tools.convert import diigo, tagmark as tagmark_convert
 
 
 load_dotenv()
@@ -50,6 +52,22 @@ def cli():
     help="whether keep keys with empty values",
 )
 @click.option(
+    "-c",
+    "--condition-json-path",
+    type=click.Path(exists=True, file_okay=True, dir_okay=False),
+    default=Path(__file__).absolute().cwd().joinpath("condition_example.json"),
+    show_default=True,
+    help="json file containing the condition for fitlering TagmarkItem",
+)
+@click.option(
+    "-b",
+    "--is-ban-condition",
+    type=click.BOOL,
+    default=True,
+    show_default=True,
+    help="If set to True, a TagmarkItem hits the `condition` will be banned, or it will be remained.",
+)
+@click.option(
     "-t",
     "--github_token",
     type=str,
@@ -62,6 +80,8 @@ def convert(
     format: str,
     output_file_path: str,
     keep_empty_keys: bool,
+    condition_json_path: str,
+    is_ban_condition: bool,
     github_token: str,
 ):
     converter: BaseConverter = None
@@ -69,7 +89,7 @@ def convert(
         case "diigo_chrome":
             converter = diigo.ChromeConverter()
         case "tagmark_jsonlines":
-            converter = tagmark_.JsonLinesConverer()
+            converter = tagmark_convert.JsonLinesConverer()
         case _:
             raise ValueError(f"unsupported format: {format}")
     _items: list[dict] = converter.load_original_items(
@@ -77,6 +97,11 @@ def convert(
     )
     converter.convert_to_tagmark(items=_items)
     converter.tagmark.get_github_repo_infos(access_token=github_token)
-    converter.tagmark.dump_to_json_lines(
-        output_path=Path(output_file_path), keep_empty_keys=keep_empty_keys
-    )
+    with open(Path(condition_json_path), "r") as _f:
+        condition: dict = json.load(_f)
+        converter.tagmark.dump_to_json_lines(
+            output_path=Path(output_file_path),
+            keep_empty_keys=keep_empty_keys,
+            condition=condition,
+            is_ban_condition=is_ban_condition,
+        )
