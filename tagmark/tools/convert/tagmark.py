@@ -4,7 +4,6 @@ from typing import Iterable
 
 from tagmark.core.convert import BaseConverter
 from tagmark.core.data import TagmarkItem
-from tagmark.core.github import GithubRepoInfo
 
 
 class JsonLinesConverer(BaseConverter):
