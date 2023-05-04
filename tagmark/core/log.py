@@ -21,7 +21,7 @@ class LogHandler(Enum):
 
 default_logging_config: dict = {
     "version": 1,
-    "disable_existing_loggers": False,
+    "disable_existing_loggers": True,
     "handlers": {
         LogHandler.CONSOLE.value: {
             "class": "logging.StreamHandler",
@@ -46,7 +46,6 @@ default_logging_config: dict = {
             "propagate": 0,
         },
     },
-    "disable_existing_loggers": True,
 }
 
 processors_mapping: Mapping[str, list[structlog.types.Processor]] = {

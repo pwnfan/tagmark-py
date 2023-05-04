@@ -16,7 +16,7 @@ class TestGithubUrl:
     ):
         url = "https://www.google.com"
         with pytest.raises(NotGithubUrlError):
-            github_url: GithubUrl = GithubUrl(url=url)
+            GithubUrl(url=url)
 
     def test_GetGithubRepoInfoError(
         self,
@@ -30,9 +30,9 @@ class TestGithubUrl:
         self,
     ):
         url1 = "https://www.google.com"
-        assert GithubUrl.is_github_url(url1) == False
+        assert GithubUrl.is_github_url(url1) is False
         url2 = "https://github.com/olifolkerd/tabulator"
-        assert GithubUrl.is_github_url(url2) == True
+        assert GithubUrl.is_github_url(url2) is True
 
     def test_get_repo_info(
         self,
