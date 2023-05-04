@@ -1,7 +1,13 @@
 import os
+
 import pytest
 
-from tagmark.core.github import GithubUrl, NotGithubUrlError, GetGithubRepoInfoError, get_github_api_remaining
+from tagmark.core.github import (
+    GetGithubRepoInfoError,
+    GithubUrl,
+    NotGithubUrlError,
+    get_github_api_remaining,
+)
 
 
 class TestGithubUrl:
@@ -56,6 +62,7 @@ class TestGithubUrl:
         assert github_url.repo_info.count_release is None  # TODO
         assert github_url.repo_info.count_conributor is None  # TODO
         assert len(github_url.repo_info.topics) >= 0
+
 
 def test_get_github_api_remaining():
     access_token = os.environ.get("GITHUB_TOKEN")

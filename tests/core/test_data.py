@@ -1,12 +1,11 @@
 import json
 import os
 import time
+from pathlib import Path
 
 import pytest
 
-from pathlib import Path
-
-from tagmark.core.data import TagmarkItem, Tagmark
+from tagmark.core.data import Tagmark, TagmarkItem
 from tagmark.core.github import GithubRepoInfo
 
 
@@ -80,7 +79,9 @@ class TestTagit:
     def test_sort(
         self,
     ):
-        _sorted_tagit_items: list[TagmarkItem] = self.tagit.sort(key="url", reverse=True)
+        _sorted_tagit_items: list[TagmarkItem] = self.tagit.sort(
+            key="url", reverse=True
+        )
         assert list(_.url for _ in _sorted_tagit_items) == list(
             reversed([_.url for _ in self.tagit.tagmark_items])
         )
@@ -122,7 +123,6 @@ class TestTagit:
 
         os.remove(output_path)
 
-
         # test keep_empty_keys==False
         output_path: Path = Path(f"/tmp/tagit_test_{time.time()}.jsonl")
         self.tagit.dump_to_json_lines(output_path=output_path, keep_empty_keys=False)
@@ -135,11 +135,10 @@ class TestTagit:
 
         os.remove(output_path)
 
-
         # test condition and ban_condition==True
         output_path: Path = Path(f"/tmp/tagit_test_{time.time()}.jsonl")
         self.tagit.dump_to_json_lines(
-            output_path=output_path, 
+            output_path=output_path,
             keep_empty_keys=False,
             condition={
                 "tags": ["frontend", "xxx"],
@@ -153,13 +152,12 @@ class TestTagit:
             for _line in _f:
                 dict_items.append(json.loads(_line.strip()))
         assert len(dict_items) == 1
-        assert dict_items[0]['url'] == self.tagit.tagmark_items[-1].url
-        
-                
+        assert dict_items[0]["url"] == self.tagit.tagmark_items[-1].url
+
         # test condition and ban_condition==False
         output_path: Path = Path(f"/tmp/tagit_test_{time.time()}.jsonl")
         self.tagit.dump_to_json_lines(
-            output_path=output_path, 
+            output_path=output_path,
             keep_empty_keys=False,
             condition={
                 "tags": ["frontend", "xxx"],
@@ -174,4 +172,4 @@ class TestTagit:
                 dict_items.append(json.loads(_line.strip()))
         assert len(dict_items) == 2
         for _dict_item in dict_items:
-            assert _dict_item['url'] != self.tagit.tagmark_items[-1].url
+            assert _dict_item["url"] != self.tagit.tagmark_items[-1].url

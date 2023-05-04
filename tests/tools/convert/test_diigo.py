@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from tagmark.tools.convert.diigo import CsvConverter, ChromeConverter
+from tagmark.tools.convert.diigo import ChromeConverter, CsvConverter
 
 
 class TestCsvConverter:
@@ -21,11 +21,15 @@ class TestChromeConverter:
     def test_load_items(
         self,
     ):
-        for item in self.chrome_converter.load_original_items(data_source=self.test_file):
+        for item in self.chrome_converter.load_original_items(
+            data_source=self.test_file
+        ):
             assert item.get("href")
 
     def test_convert(self):
-        items: list[dict] = self.chrome_converter.load_original_items(data_source=self.test_file)
+        items: list[dict] = self.chrome_converter.load_original_items(
+            data_source=self.test_file
+        )
         self.chrome_converter.convert_to_tagmark(items=items)
         for _tagmark_item in self.chrome_converter.tagmark.tagmark_items:
             assert _tagmark_item.url

@@ -1,8 +1,8 @@
-import requests
-
 from dataclasses import asdict, dataclass, field
 from datetime import datetime
-from urllib.parse import urlparse, ParseResult
+from urllib.parse import ParseResult, urlparse
+
+import requests
 
 github_api_base_url = "https://api.github.com"
 

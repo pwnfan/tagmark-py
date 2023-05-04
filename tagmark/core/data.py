@@ -1,17 +1,16 @@
 import json
-
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import NewType, Iterable
+from typing import Iterable, NewType
 
 from tagmark.core.github import (
-    get_github_api_remaining,
-    GithubUrl,
-    GithubRepoInfo,
     GithubApiLimitReachedError,
+    GithubRepoInfo,
+    GithubUrl,
     NotGithubUrlError,
+    get_github_api_remaining,
 )
-from tagmark.core.log import get_level_logger, LogLevel, LogHandler
+from tagmark.core.log import LogHandler, LogLevel, get_level_logger
 
 Timestamp: type = NewType("Timestamp", float)
 

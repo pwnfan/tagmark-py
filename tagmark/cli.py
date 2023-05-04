@@ -1,15 +1,13 @@
-import os
 import json
-
-import click
-
+import os
 from pathlib import Path
 
+import click
 from dotenv import load_dotenv
 
 from tagmark.core.convert import BaseConverter
-from tagmark.tools.convert import diigo, tagmark as tagmark_convert
-
+from tagmark.tools.convert import diigo
+from tagmark.tools.convert import tagmark as tagmark_convert
 
 load_dotenv()
 

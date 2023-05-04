@@ -1,11 +1,10 @@
 import logging
 import logging.config
 import os
-
-import structlog
-
 from enum import Enum
 from typing import Mapping
+
+import structlog
 
 
 class LogLevel(Enum):

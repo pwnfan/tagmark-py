@@ -1,10 +1,9 @@
 import json
-
 from pathlib import Path
 from typing import Iterable
 
-from tagmark.core.data import TagmarkItem
 from tagmark.core.convert import BaseConverter
+from tagmark.core.data import TagmarkItem
 from tagmark.core.github import GithubRepoInfo
 
 

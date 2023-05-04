@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Any, Iterable
 
-from tagmark.core.data import TagmarkItem, Tagmark
+from tagmark.core.data import Tagmark, TagmarkItem
 
 
 class BaseConverter(ABC):
