@@ -443,7 +443,7 @@ testing = ["fields", "hunter", "process-tests", "pytest-xdist", "six", "virtuale
 name = "python-dotenv"
 version = "1.0.0"
 description = "Read key-value pairs from a .env file and set them as environment variables"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.8"
 files = [
@@ -514,4 +514,4 @@ socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "ee1c193bb97100deb8ae1465557faef8e32b6428e7d9ee2bf0d906db16ba563e"
+content-hash = "e2822099533775f0f76e9ea07be6f49680556ff46dd4e5ade9ff8ff452c576c6"
