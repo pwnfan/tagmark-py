@@ -3,13 +3,13 @@ import os
 from pathlib import Path
 
 import click
-from dotenv import load_dotenv
+from dotenv import find_dotenv, load_dotenv
 
 from tagmark.core.convert import BaseConverter
 from tagmark.tools.convert import diigo
 from tagmark.tools.convert import tagmark as tagmark_convert
 
-load_dotenv()
+load_dotenv(dotenv_path=find_dotenv(usecwd=True))
 
 
 @click.group()
