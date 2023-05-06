@@ -53,7 +53,7 @@ def cli():
     "-c",
     "--condition-json-path",
     type=click.Path(exists=True, file_okay=True, dir_okay=False),
-    default=Path(__file__).absolute().cwd().joinpath("condition_example.json"),
+    default=Path(__file__).absolute().parent.joinpath("condition_example.json"),
     show_default=True,
     help="json file containing the condition for fitlering TagmarkItem",
 )
