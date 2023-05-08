@@ -68,3 +68,21 @@ jobs:
         run: |
           poetry run tagmark_cli --help
           poetry run tagmark_cli convert --help
+      
+      - name: Build tagmark Dist
+        run: |
+          poetry build
+          ls ${{ github.workspace }}/dist
+      
+      - name: Create Test Venv for tagmark Dist
+        run: |
+          pip install virtualenv
+          virtualenv testvenv
+      
+      - name: Test tagmark Dist
+        working-directory: ${{ github.workspace }}/dist
+        run: |
+          source ${{ github.workspace }}/testvenv/bin/activate
+          pip install --find-links=${{ github.workspace }}/dist tagmark
+          tagmark_cli --help
+          tagmark_cli convert --help
