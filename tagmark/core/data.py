@@ -136,6 +136,8 @@ class Tagmark:
         return count
 
     def get_github_repo_infos(self, access_token: str):
+        if self.count_github_url <= 0:
+            return
         _github_api_remaining: int = get_github_api_remaining(access_token=access_token)
         self._logger.info(_github_api_remaining=_github_api_remaining)
         if self.count_github_url > _github_api_remaining:
