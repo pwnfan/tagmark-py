@@ -191,6 +191,23 @@ and you need to specify the `-b True (default)` option, which means if a Tagmark
 
 On the contrary, if you only need lines with tag `javascript` _**or**_ `css` to be output into the output file, you need to specify the `-b False` option, which means if a TagmarkItem meets the condition, it will be picked out(not banned) and put into the output file.
 
+## Condition File Details
+
+Note that not all keys in TagmarkItem are supported in condition filter files, here is a table for details:
+
+| key              | value type    | supported in condition file | condition example                  | meaning                                                |
+|------------------|---------------|:---------------------------:|------------------------------------|--------------------------------------------------------|
+| url              | string        |             yes             | "url": ["github", "stackoverflow"] | url contains "github" _**or**_ "stackoverflow"         |
+| id               | int           |             no              | -                                  | -                                                      |
+| valid            | boolean       |             yes             | "valid": true                      | the url is valid(valid check haven't been implemented) |
+| title            | string        |             yes             | (similar to `url`)                 | (similar to `url`)                                     |
+| tags             | array         |             yes             | "tags": ["python", "javascript"]   | tags contains "python" _**or**_ "javascript"           |
+| is_github_url    | boolean       |             yes             | (similar to `valid`)               | (similar to `valid`)                                   |
+| github_repo_info | nested object |             no              | -                                  | -                                                      |
+| time_added       | string        |             no              | -                                  | -                                                      |
+
+All values in condition file is **case-sensitive**.
+
 ## Contributing
 
 We welcome you to join the development of tagmark. Please see [contributing document][contributing-document-url]
