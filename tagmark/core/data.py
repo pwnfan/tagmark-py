@@ -69,7 +69,7 @@ class TagmarkItem:
                     str,
                     list,
                 )
-            ) and (type(_item_value) in (list, tuple, set)):
+            ) and (type(_v) in (list, tuple, set)):
                 is_hit = is_hit and any(_x in _item_value for _x in _v)
             else:
                 raise ValueError(
