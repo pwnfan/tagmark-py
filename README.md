@@ -215,6 +215,7 @@ We welcome you to join the development of tagmark. Please see [contributing docu
 ## TODO
 
 - [x] lib.data: skip dumping some tagmark item according to user input
+- [ ] Tagmark.get_github_repo_infos add condition filter
 - [ ] lib.data: add github repo licence info into TagmarkItem
 - [ ] validate url availability and set TagmarkItem.valid according to the result
 
