@@ -76,6 +76,9 @@ class TestTagit:
                 ]
             )
 
+    def test_count_github_url(self):
+        assert self.tagit.count_github_url == 2
+
     def test_sort(
         self,
     ):
