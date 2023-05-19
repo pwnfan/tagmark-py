@@ -216,6 +216,7 @@ We welcome you to join the development of tagmark. Please see [contributing docu
 
 - [x] lib.data: skip dumping some tagmark item according to user input
 - [ ] Tagmark.get_github_repo_infos add condition filter
+- [ ] add msg to show rate of process in `convert` command becuase it may be slow when there are a plenty of github repo urls
 - [ ] lib.data: add github repo licence info into TagmarkItem
 - [ ] validate url availability and set TagmarkItem.valid according to the result
 
