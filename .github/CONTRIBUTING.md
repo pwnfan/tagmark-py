@@ -128,3 +128,16 @@ The subject contains a succinct description of the change, like Update code high
 
 * No dot (.) at the end.
 * Use the imperative, present tense: "change" not "changed" nor "changes".
+
+
+### Code Style and Lint
+
+please run the linter command bellow to format your code before pushing your pull request:
+
+```bash
+flake8 --ignore=E501,W503 .
+black .
+isort --profile black .
+```
+
+these commands will also be run in the CI progress auto triggerrd by Github Actions to check the style of your code when you push your pull request. If the check failed your pull request is not able to be merged.

@@ -96,14 +96,13 @@ Options:
 
 ## Core Options Explantation and Tagmark Details
 
--   `-f`: the input file [default: diigo_chrome]
+- `-f`: the input file [default: diigo_chrome]
+  - `diigo_chrome`: the Chrome format bookmarks exported from Diigo library, see [my blog](https://pwnfan.github.io/post/en/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#tagmarks-solution) for details
+  - `tagmark_jsonlines`: indicate the input file is a tagmark format json-lines file, which is the output file of the `-o` option of this script. This may be confused, but it's not useless, the purpose of using a `-o` output file as the `-i` input file in a next run, is to refresh the Github info(Starts, Forks, Last Commit, etc) of the bookmarks who are Github repos.
 
-    -   `diigo_chrome`: the Chrome format bookmarks exported from Diigo library, see [my blog](https://pwnfan.github.io/post/en/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#tagmarks-solution) for details
-    -   `tagmark_jsonlines`: indicate the input file is a tagmark format json-lines file, which is the output file of the `-o` option of this script. This may be confused, but it's not useless, the purpose of using a `-o` output file as the `-i` input file in a next run, is to refresh the Github info(Starts, Forks, Last Commit, etc) of the bookmarks who are Github repos.
+- `-k`: whether keep keys with empty values [default: False]. This is to opitmize the output file size by removing the keys with empty values.
 
--   `-k`: whether keep keys with empty values [default: False]. This is to opitmize the output file size by removing the keys with empty values.
-
--   `-c` and `-b`:
+- `-c` and `-b`:
 
 the whole workflow of tagmark:
 
@@ -215,6 +214,8 @@ We welcome you to join the development of tagmark. Please see [contributing docu
 ## TODO
 
 - [x] lib.data: skip dumping some tagmark item according to user input
+- [ ] Tagmark.get_github_repo_infos add condition filter
+- [ ] add msg to show rate of process in `convert` command becuase it may be slow when there are a plenty of github repo urls
 - [ ] lib.data: add github repo licence info into TagmarkItem
 - [ ] validate url availability and set TagmarkItem.valid according to the result
 

@@ -135,6 +135,14 @@ class Tagmark:
                 count += 1
         return count
 
+    @property
+    def all_tags(self) -> set:
+        _all_tags: set = set()
+        for _tagmark_item in self.tagmark_items:
+            if _tagmark_item.tags:
+                _all_tags.update(_tagmark_item.tags)
+        return _all_tags
+
     def get_github_repo_infos(self, access_token: str):
         if self.count_github_url <= 0:
             return
@@ -174,7 +182,7 @@ class Tagmark:
         if len(self.tagmark_items) > 0:
             with open(output_path, "w") as f:
                 f.writelines(
-                    f"{json.dumps(_item.to_dict(keep_empty_keys=keep_empty_keys))}\n"
+                    f"{json.dumps(obj=_item.to_dict(keep_empty_keys=keep_empty_keys), ensure_ascii=False)}\n"
                     for _item in self.tagmark_items
                     if (
                         (

@@ -76,6 +76,12 @@ class TestTagit:
                 ]
             )
 
+    def test_count_github_url(self):
+        assert self.tagit.count_github_url == 2
+
+    def test_all_tags(self):
+        assert len(self.tagit.all_tags) == 8
+
     def test_sort(
         self,
     ):
