@@ -182,7 +182,7 @@ class Tagmark:
         if len(self.tagmark_items) > 0:
             with open(output_path, "w") as f:
                 f.writelines(
-                    f"{json.dumps(_item.to_dict(keep_empty_keys=keep_empty_keys))}\n"
+                    f"{json.dumps(obj=_item.to_dict(keep_empty_keys=keep_empty_keys), ensure_ascii=False)}\n"
                     for _item in self.tagmark_items
                     if (
                         (
