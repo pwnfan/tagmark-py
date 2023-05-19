@@ -105,9 +105,13 @@ def convert(
         data_source=Path(input_file_path)
     )
     converter.convert_to_tagmark(items=_items)
-    converter.tagmark.get_github_repo_infos(access_token=github_token)
     with open(Path(condition_json_path), "r") as _f:
         condition: dict = json.load(_f)
+        converter.tagmark.get_github_repo_infos(
+            access_token=github_token,
+            condition=condition,
+            is_ban_condition=is_ban_condition,
+        )
         converter.tagmark.dump_to_json_lines(
             output_path=Path(output_file_path),
             keep_empty_keys=keep_empty_keys,

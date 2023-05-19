@@ -48,8 +48,15 @@ class TestTagit:
                 ),
             ]
         )
+        ban_condition: dict = {
+            "tags": [
+                "oss",
+            ],
+        }
         _access_token = os.environ.get("GITHUB_TOKEN")
-        cls.tagit.get_github_repo_infos(access_token=_access_token)
+        cls.tagit.get_github_repo_infos(
+            access_token=_access_token, condition=ban_condition, is_ban_condition=True
+        )
 
     def test_add(
         self,
@@ -111,6 +118,9 @@ class TestTagit:
         assert github_repo_info.count_tag is None  # TODO
         assert github_repo_info.count_release is None  # TODO
         assert github_repo_info.count_conributor is None  # TODO
+        
+        github_repo_info: GithubRepoInfo = self.tagit.tagmark_items[-1].github_repo_info
+        assert not github_repo_info
 
     def test_dump_to_json_lines(
         self,

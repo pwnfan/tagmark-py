@@ -143,7 +143,12 @@ class Tagmark:
                 _all_tags.update(_tagmark_item.tags)
         return _all_tags
 
-    def get_github_repo_infos(self, access_token: str):
+    def get_github_repo_infos(
+        self,
+        access_token: str,
+        condition: dict = {},
+        is_ban_condition=True,
+    ):
         if self.count_github_url <= 0:
             return
         _github_api_remaining: int = get_github_api_remaining(access_token=access_token)
@@ -152,14 +157,21 @@ class Tagmark:
             raise GithubApiLimitReachedError(
                 f"API limit reached, needs {self.count_github_url}, remaining {_github_api_remaining}"
             )
-        for _tag_mark_item in self.tagmark_items:
-            if not _tag_mark_item.is_github_url:
+        for _tagmark_item in self.tagmark_items:
+            if not _tagmark_item.is_github_url:
+                continue
+            elif (
+                is_ban_condition and _tagmark_item.hits_condition(condition=condition)
+            ) or (
+                (not is_ban_condition)
+                and (not _tagmark_item.hits_condition(condition=condition))
+            ):
                 continue
             else:
                 try:
-                    _tag_mark_item.get_github_repo_info(access_token=access_token)
+                    _tagmark_item.get_github_repo_info(access_token=access_token)
                 except Exception as err:
-                    self._logger.warning(url=_tag_mark_item.url, msg=err, exc_info=True)
+                    self._logger.warning(url=_tagmark_item.url, msg=err, exc_info=True)
 
     def dump_to_json_lines(
         self,
