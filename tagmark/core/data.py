@@ -3,6 +3,8 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Iterable, NewType
 
+from tqdm import tqdm
+
 from tagmark.core.github import (
     GithubApiLimitReachedError,
     GithubRepoInfo,
@@ -157,7 +159,10 @@ class Tagmark:
             raise GithubApiLimitReachedError(
                 f"API limit reached, needs {self.count_github_url}, remaining {_github_api_remaining}"
             )
-        for _tagmark_item in self.tagmark_items:
+        for _tagmark_item in tqdm(
+            iterable=self.tagmark_items,
+            desc="retrieving Github repository information",
+        ):
             if not _tagmark_item.is_github_url:
                 continue
             elif (

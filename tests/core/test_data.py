@@ -118,7 +118,7 @@ class TestTagit:
         assert github_repo_info.count_tag is None  # TODO
         assert github_repo_info.count_release is None  # TODO
         assert github_repo_info.count_conributor is None  # TODO
-        
+
         github_repo_info: GithubRepoInfo = self.tagit.tagmark_items[-1].github_repo_info
         assert not github_repo_info
 
