@@ -1,0 +1,9 @@
+{
+    "dev": "Development",
+    "frontend": "Frontend related",
+    "javascript": "Javascript",
+    "library": "a moudle/package/library (usually third party ones) of certain development language",
+    "module": "a moudle/package/library (usually third party ones) of certain development language",
+    "tag": "Tag related",
+    "test": "the Testing part in Software Development"
+}
