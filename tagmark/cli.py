@@ -164,16 +164,20 @@ def checktag(
     add_no_def_tag: bool,
     no_def_tag_value_placeholder: str,
 ):
+    # load tagmark data from file
     _converter: tagmark_convert.JsonLinesConverer = tagmark_convert.JsonLinesConverer()
     _items: list[dict] = _converter.load_original_items(
         data_source=Path(tagmark_data_file_path)
     )
     _converter.convert_to_tagmark(items=_items)
+    
+    # load tag definition from file
     tag_definition_file: Path = Path(tag_definition_file_path)
     with open(tag_definition_file) as _f_tag_definition:
         tag_definitions: dict = json.load(_f_tag_definition)
         _tags_with_definition: set = set(tag_definitions.keys())
 
+    # load condition from file
     _tags_in_ban_condition: set[str] = {}
     if condition_json_path:
         with open(Path(condition_json_path)) as _f_ban_condition:
@@ -181,6 +185,7 @@ def checktag(
                 json.load(_f_ban_condition).get("tags", [])
             )
 
+    # check tags
     tags_check_result: TagsCheckResult = _converter.check_tags(
         tags_with_definition=_tags_with_definition,
         tags_in_ban_condition=_tags_in_ban_condition,
