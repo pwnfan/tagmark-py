@@ -9,6 +9,7 @@ from dotenv import find_dotenv, load_dotenv
 
 from tagmark.core.convert import BaseConverter, TagsCheckResult
 from tagmark.core.log import LogHandler, LogLevel, get_level_logger
+from tagmark.tools.autotagdef import AutoTagDefinitonMarker
 from tagmark.tools.convert import diigo
 from tagmark.tools.convert import tagmark as tagmark_convert
 
@@ -21,6 +22,16 @@ class TagDefinitionUnusedWarning(Warning):
 
 class TagDefinitionMissingError(Exception):
     pass
+
+
+__logger = get_level_logger(
+    name="tagmark.cli",
+    level=LogLevel.INFO,
+    handlers=[
+        LogHandler.CONSOLE,
+    ],
+)
+__logger.bind(scope="cli")
 
 
 @click.group()
@@ -170,7 +181,7 @@ def checktag(
         data_source=Path(tagmark_data_file_path)
     )
     _converter.convert_to_tagmark(items=_items)
-    
+
     # load tag definition from file
     tag_definition_file: Path = Path(tag_definition_file_path)
     with open(tag_definition_file) as _f_tag_definition:
@@ -190,18 +201,10 @@ def checktag(
         tags_with_definition=_tags_with_definition,
         tags_in_ban_condition=_tags_in_ban_condition,
     )
-    _logger = get_level_logger(
-        name="tagmark.cli",
-        level=LogLevel.INFO,
-        handlers=[
-            LogHandler.CONSOLE,
-        ],
-    )
-    _logger.bind(scope="checktag")
-    _logger.info(tags_count=tags_check_result.count)
+    __logger.info(tags_count=tags_check_result.count)
 
     if tags_check_result.tags_definition_unused:
-        _logger.warn(
+        __logger.warn(
             msg="unused definition found",
             tags_definition_unused=tags_check_result.tags_definition_unused,
         )
@@ -212,7 +215,7 @@ def checktag(
 
     if tags_check_result.tags_without_definition:
         if not add_no_def_tag:
-            _logger.error(
+            __logger.error(
                 msg="tags without definition found",
                 tags_without_definition=tags_check_result.tags_without_definition,
             )
@@ -242,7 +245,108 @@ def checktag(
                     indent=4,
                     ensure_ascii=False,
                 )
-                _logger.info(
+                __logger.info(
                     msg="new tags definition file has been generated",
                     new_tags_definition_file=new_tags_definition_file.absolute(),
                 )
+
+
+@cli.command(help="get tag definition automatically by ChatGPT")
+@click.option(
+    "-d",
+    "--tag-definition-file-path",
+    type=click.Path(exists=True, file_okay=True, dir_okay=False),
+    help="tag definition file path",
+)
+@click.option(
+    "-f",
+    "--gpt-prompt-ending-flag",
+    type=str,
+    default="?",
+    show_default=True,
+    help="the ending flag of the prompt(question) sent to ChatGPT to get a answer about a tag definiton",
+)
+@click.option(
+    "-c",
+    "--gpt-config-file-path",
+    type=click.Path(exists=True, file_okay=True, dir_okay=False),
+    default="~/.config/revChatGPT/config.json",
+    help="the config file for invoking ChatGPT API, we sugguest setting `access_token` in the config file, see https://github.com/acheong08/ChatGPT#--optional-configuration for details.",
+)
+@click.option(
+    "-i",
+    "--gpt-conversation-id",
+    type=str,
+    default=None,
+    show_default=True,
+    help="the id of conversation in which to (continue to) interact with ChatGPT, if set to `None` a new conversation will be created. See https://github.com/acheong08/ChatGPT/wiki/V1#ask for details.",
+)
+@click.option(
+    "-t",
+    "--gpt-timeout",
+    type=int,
+    default=60,
+    show_default=True,
+    help="the timeout that GPT answers one question(get one tag definition)",
+)
+@click.option(
+    "-p",
+    "--no-def-tag-value-placeholder",
+    type=str,
+    default="!!!NO DEFINITION FOR THIS TAG, PLEASE ADD HERE!!!",
+    show_default=True,
+    help="explained in the `-a` parameter",
+)
+def autotagdef(
+    tag_definition_file_path,
+    gpt_config_file_path,
+    gpt_prompt_ending_flag,
+    gpt_conversation_id,
+    gpt_timeout,
+    no_def_tag_value_placeholder,
+):
+    # load tag definitions from file
+    tag_definition_file: Path = Path(tag_definition_file_path)
+    with open(Path(tag_definition_file)) as _f:
+        _tag_definitions: dict[str:str] = json.load(_f)
+
+    # loag gpt config from file
+    with open(Path(gpt_config_file_path)) as _f:
+        _gpt_config = json.load(_f)
+
+    # auto make tag definitions
+    _auto_tag_def_maker: AutoTagDefinitonMarker = AutoTagDefinitonMarker(
+        gpt_config=_gpt_config,
+        conversation_id=gpt_conversation_id,
+        timeout=gpt_timeout,
+    )
+
+    (
+        new_tag_definitions,
+        auto_tag_make_stats,
+    ) = _auto_tag_def_maker.auto_make_tag_definitions(
+        tag_definitions=_tag_definitions,
+        gpt_prompt_ending_flag=gpt_prompt_ending_flag,
+        no_def_tag_value_placeholder=no_def_tag_value_placeholder,
+    )
+
+    # write new tag definitions into file
+    new_tags_definition_file: Path = tag_definition_file.parent.joinpath(
+        f"new-{datetime.now().strftime('%Y%m%d%H%M%S')}-{tag_definition_file.name}"
+    )
+    with open(new_tags_definition_file, "w") as f:
+        json.dump(
+            obj=new_tag_definitions,
+            fp=f,
+            sort_keys=True,
+            indent=4,
+            ensure_ascii=False,
+        )
+        __logger.info(
+            msg="new tags definition file has been generated",
+            new_tags_definition_file=new_tags_definition_file.absolute(),
+        )
+        __logger.info(
+            msg="statistics",
+            auto_tag_make_stats=auto_tag_make_stats,
+        )
