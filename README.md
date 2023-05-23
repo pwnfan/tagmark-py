@@ -239,9 +239,8 @@ Options:
                                   fitlering TagmarkItem, here only the value
                                   of `tags` field in the file will be used,
                                   and this condition must be a ban condition
-                                  [default: /Users/uncle2/Desktop/MacBook2021/
-                                  Projects/tagmark/tagmark/condition_example.j
-                                  son]
+                                  [default: /Users/pwnfan/Desktop/Projects/tag
+                                  mark/tagmark/condition_example.json]
   -a, --add-no-def-tag BOOLEAN    if set to `True`, a new tags definition file
                                   will be generated, which includes tags in
                                   the old tag definition file, and tags in the

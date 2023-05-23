@@ -39,7 +39,7 @@ def cli():
     pass
 
 
-@cli.command(help="covert other format of bookmarks into Tagmark format(json-lines)")
+@cli.command(help="convert other bookmark formats into Tagmark format(json-lines)")
 @click.option(
     "-i",
     "--input-file-path",
@@ -131,7 +131,7 @@ def convert(
         )
         __logger.info(
             msg="new tagmark data file has been generated",
-            tagmark_data=output_file_path.absolute(),
+            tagmark_data=Path(output_file_path).absolute(),
         )
 
 
