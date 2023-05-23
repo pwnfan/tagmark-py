@@ -9,7 +9,10 @@
       - [Core Options Explantation and Design Details](#core-options-explantation-and-design-details)
     - [sub command: checktag](#sub-command-checktag)
       - [Usage Examples](#usage-examples-1)
+    - [sub command: autotagdef](#sub-command-autotagdef)
+      - [Usage Examples](#usage-examples-2)
     - [Condition File Details](#condition-file-details)
+  - [Acknowledgments](#acknowledgments)
   - [Contributing](#contributing)
   - [TODO](#todo)
 
@@ -19,12 +22,16 @@ TagMark is a tag based browser bookmark solution for developers.
 
 I have writien a blog [TagMark: Maybe a Better Browser Bookmark Solution](https://pwnfan.github.io/post/en/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/) to introduce TagMark in details with a toc below:
 
-- [What is TagMark](https://pwnfan.github.io/post/en/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#what-is-tagmark)
-- [What is a "browser bookmark solution"](https://pwnfan.github.io/post/en/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#what-is-a-browser-bookmark-solution)
-- [Why we need tags for bookmarks](https://pwnfan.github.io/post/en/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#why-we-need-tags-for-bookmarks)
-- [Why not Diigo bookmark manager (Diigo My Library)](https://pwnfan.github.io/post/en/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#why-not-diigo-bookmark-manager-diigo-my-library)
+- [What Is TagMark](https://pwnfan.github.io/post/en/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#what-is-tagmark)
+- [What Is A "browser bookmark solution"](https://pwnfan.github.io/post/en/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#what-is-a-browser-bookmark-solution)
+- [Why Do We Need Tags For Bookmarks](https://pwnfan.github.io/post/en/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#why-we-need-tags-for-bookmarks)
+- [Why Not Diigo Bookmark Manager (Diigo My Library))](https://pwnfan.github.io/post/en/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#why-not-diigo-bookmark-manager-diigo-my-library)
 - [TagMark's solution: How to build your own TagMark](https://pwnfan.github.io/post/en/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#tagmarks-solution-how-to-build-your-own-tagmark)
+  - [Generating Your TagMark Data](https://pwnfan.github.io/post/en/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#generating-your-tagmark-data)
+  - [Defining Your Tags With The Help Of ChatGPT](https://pwnfan.github.io/post/en/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#defining-your-tags-with-the-help-of-chatgpt)
+  - [Periodically Upading Your TagMark Data and Tag Definitions](https://pwnfan.github.io/post/en/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#periodically-upading-your-tagmark-data-and-tag-definitions)
 - [Advanced usages](https://pwnfan.github.io/post/en/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#advanced-usages)
+- [FAQ](https://pwnfan.github.io/post/en/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#faq)
 
 I recommend you read the blog first, to save time you can only read the [What is TagMark](https://pwnfan.github.io/post/en/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#what-is-tagmark) section and [TagMark's solution: How to build your own TagMark](https://pwnfan.github.io/post/en/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#tagmarks-solution-how-to-build-your-own-tagmark) section.
 
@@ -75,19 +82,24 @@ Options:
   --help  Show this message and exit.
 
 Commands:
-  checktag  verify every tag has a definition
-  convert   covert other format of bookmarks into Tagmark format(json-lines)
+  autotagdef  get tag definition automatically by ChatGPT
+  checktag    check every tag has a definition
+  convert     convert other bookmark formats into Tagmark format(json-lines)
 ```
 
 ## Usage
 
 ### sub command: convert
 
+  </summary>
+
+`convert` helps to convert other bookmark formats(diigo_chrome/tagmark_jsonlines) into Tagmark data format(json-lines).
+
 ```bash
 (py311) ➜  tagmark_cli convert --help                                                            
 Usage: tagmark_cli convert [OPTIONS]
 
-  covert other format of bookmarks into Tagmark format(json-lines)
+  convert other bookmark formats into Tagmark format(json-lines)
 
 Options:
   -i, --input-file-path FILE      input file path
@@ -99,8 +111,8 @@ Options:
   -k, --keep_empty_keys BOOLEAN   whether keep keys with empty values
                                   [default: False]
   -c, --condition-json-path FILE  json file containing the condition for
-                                  fitlering TagmarkItem  [default: /Users/pwnf
-                                  an/Desktop//Projects/tagmark/tagmark/conditi
+                                  fitlering TagmarkItem  [default: /Users/pwn
+                                  an/Desktop/Projects/tagmark/tagmark/conditi
                                   on_example.json]
   -b, --is-ban-condition BOOLEAN  If set to True, a TagmarkItem hits the
                                   `condition` will be banned, or it will be
@@ -110,6 +122,10 @@ Options:
                                   root dir of this project
   --help                          Show this message and exit.
 ```
+
+Please refer to section [Core Options Explantation and Design Details](#core-options-explantation-and-design-details) for details of the options.
+
+Please refer to [TagMark: Maybe a Better Browser Bookmark Solution > TagMark's solution: How to build your own TagMark > Generating Your TagMark Data](https://pwnfan.github.io/post/en/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#generating-your-tagmark-data) for usage scenarios of `convert` sub command.
 
 #### Usage Examples
 
@@ -222,8 +238,11 @@ Check the [Condition File Details](#condition-file-details) section for more abo
 
 ### sub command: checktag
 
+
+`checktag` helps to verify if every tag in the output file generated by the `-o` parameter of the `convert` sub command has a definition in the tag definition file. This ensures the web UI [tagmark-ui](https://github.com/pwnfan/tagmark-ui) works better.
+
 ```bash
-(py311) ➜  poetry run tagmark_cli checktag --help
+(py311) ➜  tagmark_cli checktag --help
 Usage: tagmark_cli checktag [OPTIONS]
 
   check every tag has a definition
@@ -259,8 +278,12 @@ Options:
   --help                          Show this message and exit.
 ```
 
-The `checktag` help to verify if every tag in the output file generated by the `-o` parameter of the `convert` sub command has a definition in the tag definition file. This ensures the web UI [tagmark-ui](https://github.com/pwnfan/tagmark-ui) works better.
+Please refer to
 
+- [TagMark: Maybe a Better Browser Bookmark Solution > TagMark's solution: How to build your own TagMark > Defining Your Tags With The Help Of ChatGPT](https://pwnfan.github.io/post/en/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#defining-your-tags-with-the-help-of-chatgpt)
+- [TagMark: Maybe a Better Browser Bookmark Solution > TagMark's solution: How to build your own TagMark > Periodically Upading Your TagMark Data and Tag Definitions](https://pwnfan.github.io/post/en/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#periodically-upading-your-tagmark-data-and-tag-definitions)
+
+for usage scenarios of `checktag` sub command.
 #### Usage Examples
 
 ```bash
@@ -271,6 +294,65 @@ tagmark_cli checktag -t tagmark_ui_data.jsonl -d tag_definitions.json -c my-cond
 ```bash
 # check every tag in `tagmark_ui_data.jsonl` has a definition in `tag_definitions.json`. If not error `tagmark.cli.TagDefinitionMissingError: tags without definition found` will be raise, with the details of the missing definition tags.
 tagmark_cli checktag -t tagmark_ui_data.jsonl -d tag_definitions.json -c my-condition.json -a false
+```
+
+### sub command: autotagdef
+
+`autotagdef` helps to get tag definition automatically from ChatGPT **based on the prompt given by users.**
+
+```bash
+(py311) ➜  tagmark git:(dev) ✗ tagmark_cli autotagdef --help
+Usage: tagmark_cli autotagdef [OPTIONS]
+
+  get tag definition automatically by ChatGPT
+
+Options:
+  -d, --tag-definition-file-path FILE
+                                  tag definition file path
+  -f, --gpt-prompt-ending-flag TEXT
+                                  the ending flag of the prompt(question) sent
+                                  to ChatGPT to get a answer about a tag
+                                  definiton  [default: ?]
+  -c, --gpt-config-file-path FILE
+                                  the config file for invoking ChatGPT API, we
+                                  sugguest setting `access_token` in the
+                                  config file, see https://github.com/acheong0
+                                  8/ChatGPT#--optional-configuration for
+                                  details.
+  -i, --gpt-conversation-id TEXT  the id of conversation in which to (continue
+                                  to) interact with ChatGPT, if set to `None`
+                                  a new conversation will be created. See http
+                                  s://github.com/acheong08/ChatGPT/wiki/V1#ask
+                                  for details.
+  -t, --gpt-timeout INTEGER       the timeout that GPT answers one
+                                  question(get one tag definition)  [default:
+                                  60]
+  -p, --no-def-tag-value-placeholder TEXT
+                                  explained in the `-a` parameter  [default:
+                                  !!!NO DEFINITION FOR THIS TAG, PLEASE ADD
+                                  HERE!!!]
+  --help                          Show this message and exit.
+```
+
+Please refer to
+
+- [TagMark: Maybe a Better Browser Bookmark Solution > TagMark's solution: How to build your own TagMark > Defining Your Tags With The Help Of ChatGPT](https://pwnfan.github.io/post/en/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#defining-your-tags-with-the-help-of-chatgpt)
+- [TagMark: Maybe a Better Browser Bookmark Solution > TagMark's solution: How to build your own TagMark > Periodically Upading Your TagMark Data and Tag Definitions](https://pwnfan.github.io/post/en/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#periodically-upading-your-tagmark-data-and-tag-definitions)
+
+for usage scenarios of `autotagdef` sub command.
+
+#### Usage Examples
+
+```bash
+poetry run tagmark_cli autotagdef -d tag_definitions.json -c gpt_config.json -i cca29e06-692e-4a52-84be-c47a7ca524cc
+```
+
+
+```bash
+(py311) ➜  tagmark git:(dev) ✗ poetry run tagmark_cli autotagdef -d tag_definitions.json -c gpt_config.json -i cca29e06-692e-4a52-84be-c47a7ca524cc
+100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 471/471 [00:45<00:00, 10.41it/s]
+{"filename": "cli.py", "func_name": "autotagdef", "level": "info", "lineno": 345, "logger": "tagmark.cli", "msg": "new tags definition file has been generated", "new_tags_definition_file": "PosixPath('/Users/uncle2/Desktop/MacBook2021/Projects/tagmark/new-20230522223828-tag_definitions.json')", "process": 82747, "process_name": "MainProcess", "timestamp": "2023-05-22T22:38:28.280672"}
+{"auto_tag_make_stats": "AutoTagMakeStats(count_total_tags=471, count_auto_made_success=1, count_auto_made_fail=0, count_no_prompt=0, count_already_defined=470)", "filename": "cli.py", "func_name": "autotagdef", "level": "info", "lineno": 349, "logger": "tagmark.cli", "msg": "statistics", "process": 82747, "process_name": "MainProcess", "timestamp": "2023-05-22T22:38:28.334363"}
 ```
 
 ### Condition File Details
@@ -289,6 +371,12 @@ Note that not all keys in TagmarkItem are supported in condition filter files, h
 | time_added       | string        |             no              | -                                  | -                                                      |
 
 All values in condition file is **case-sensitive**.
+
+## Acknowledgments
+
+- [tqdm](https://github.com/tqdm/tqdm)
+- [revchatgpt](https://github.com/acheong08/ChatGPT)
+- [ChatGPT](https://chat.openai.com/)
 
 ## Contributing
 
