@@ -129,6 +129,10 @@ def convert(
             condition=condition,
             is_ban_condition=is_ban_condition,
         )
+        __logger.info(
+            msg="new tagmark data file has been generated",
+            tagmark_data=output_file_path.absolute(),
+        )
 
 
 @cli.command(help="check every tag has a definition")
