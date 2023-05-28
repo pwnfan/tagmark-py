@@ -1,6 +1,7 @@
 # tagmark (Python)
 
 - [tagmark (Python)](#tagmark-python)
+  - [Features And Demo](#features-and-demo)
   - [What is TagMark](#what-is-tagmark)
   - [Installation](#installation)
   - [Usage](#usage)
@@ -16,11 +17,54 @@
   - [Contributing](#contributing)
   - [TODO](#todo)
 
+## Features And Demo
+
+Here is a page as the demo of TagMark usage, which is all my bookmarks integrated in my blog:
+
+<https://www.pwn.fan/tagmark/>
+
+Fetures of the page:
+
+- Substantial tag based bookmarks
+  - 1400+ tagged bookmarks, which contain contents below:
+    - cybersecurity
+      - red team
+      - blue team
+      - etc
+    - software development, devops, devsecops
+    - blogs of a person, enterprise, team or organization which refer to the above topics
+    - etc
+  - 1000+ curated Github Repos
+  - 600+ tags with detailed tag definitions
+- Full featured tags
+  - tag definitions (show/hide definition by left click on tags)
+  - tag overview with counts
+  - color difference depending on counts
+- Simple but powerful header filter for each column
+  - thick client: static, pure frontend and js based, so it's fast responding
+  - simple and useful fitler grammer
+  - quickly input tag name into filter by just a right click
+  - press CTRL/CMD with left click in any filter input to call out multiple language document (English/Japanese/Chinses)
+- Supporting for URL GET paramaters based filtering
+  - static, pure frontend and js based
+  - easy for sharing
+- Columns related things
+  - detailed Github repository information
+  - suppressible columns
+
+see [the gif demos on my blog](https://www.pwn.fan/post/en/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#what-is-tagmark).
+
+I'm glad to share all my bookmarks with you. Welcome to help me enhance this /tagmark page in my blog by:
+
+- [Contributing and Sharing Your Great Bookmark(s)](https://github.com/pwnfan/pwnfan.github.io/issues/1#issue-1729293100)
+- [Reporting Improper Tag Definitions](https://github.com/pwnfan/pwnfan.github.io/issues/2#issue-1729295366)
+- [Reporting Improper Tag For Bookmarks](https://github.com/pwnfan/pwnfan.github.io/issues/3#issue-1729507987)
+
 ## What is TagMark
 
 TagMark is a tag based browser bookmark solution for developers.
 
-I have writien a blog [TagMark: Maybe a Better Browser Bookmark Solution](https://pwnfan.github.io/post/en/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/) to introduce TagMark in details with a toc below:
+I have written a blog [TagMark: Maybe a Better Browser Bookmark Solution](https://pwnfan.github.io/post/en/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/) to introduce TagMark in details with a toc below:
 
 - [What Is TagMark](https://pwnfan.github.io/post/en/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#what-is-tagmark)
 - [What Is A "browser bookmark solution"](https://pwnfan.github.io/post/en/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#what-is-a-browser-bookmark-solution)
@@ -376,6 +420,7 @@ All values in condition file is **case-sensitive**.
 - [tqdm](https://github.com/tqdm/tqdm)
 - [revchatgpt](https://github.com/acheong08/ChatGPT)
 - [ChatGPT](https://chat.openai.com/)
+- [Diigo](https://www.diigo.com/)
 
 ## Contributing
 
