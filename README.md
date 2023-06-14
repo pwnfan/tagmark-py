@@ -433,7 +433,7 @@ We welcome you to join the development of tagmark. Please see [contributing docu
 - [x] add msg to show rate of process in `convert` command becuase it may be slow when there are a plenty of github repo urls
 - [ ] lib.data: add github repo licence info into TagmarkItem
 - [ ] validate url availability and set TagmarkItem.valid according to the result
-  - [ ] github repo url
+  - [x] github repo url
   - [ ] not github repo url
 
 [contributing-document-url]: https://github.com/pwnfan/tagmark/blob/main/.github/CONTRIBUTING.md

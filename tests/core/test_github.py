@@ -3,8 +3,9 @@ import os
 import pytest
 
 from tagmark.core.github import (
-    GetGithubRepoInfoError,
+    GithubRepoNotFoundError,
     GithubUrl,
+    InvalidGithubAccessTokenError,
     NotGithubUrlError,
     get_github_api_remaining,
 )
@@ -18,13 +19,21 @@ class TestGithubUrl:
         with pytest.raises(NotGithubUrlError):
             GithubUrl(url=url)
 
-    def test_GetGithubRepoInfoError(
+    def test_InvalidGithubAccessTokenError(
         self,
     ):
         url = "https://github.com/not-extists_user-12345/not-exists-repo-54321"
-        with pytest.raises(GetGithubRepoInfoError):
+        with pytest.raises(InvalidGithubAccessTokenError):
             github_url: GithubUrl = GithubUrl(url=url)
             github_url.get_repo_info(access_token="invalid_access_token")
+
+    def test_GithubRepoNotFoundError(
+        self,
+    ):
+        url = "https://github.com/not-extists_user-12345/not-exists-repo-54321"
+        with pytest.raises(GithubRepoNotFoundError):
+            github_url: GithubUrl = GithubUrl(url=url)
+            github_url.get_repo_info(access_token=os.environ.get("GITHUB_TOKEN"))
 
     def test_is_github_url(
         self,
