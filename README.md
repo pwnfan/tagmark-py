@@ -64,7 +64,7 @@ I'm glad to share all my bookmarks with you. Welcome to help me enhance this /ta
 
 TagMark is a tag based browser bookmark solution for developers.
 
-I have written a blog [TagMark: Maybe a Better Browser Bookmark Solution](https://pwnfan.github.io/post/en/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/) to introduce TagMark in details with a toc below:
+I have written a blog post [TagMark: Maybe a Better Browser Bookmark Solution](https://pwnfan.github.io/post/en/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/) to introduce TagMark in details with a toc below:
 
 - [What Is TagMark](https://pwnfan.github.io/post/en/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#what-is-tagmark)
 - [What Is A "browser bookmark solution"](https://pwnfan.github.io/post/en/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#what-is-a-browser-bookmark-solution)
@@ -433,5 +433,7 @@ We welcome you to join the development of tagmark. Please see [contributing docu
 - [x] add msg to show rate of process in `convert` command becuase it may be slow when there are a plenty of github repo urls
 - [ ] lib.data: add github repo licence info into TagmarkItem
 - [ ] validate url availability and set TagmarkItem.valid according to the result
+  - [ ] github repo url
+  - [ ] not github repo url
 
 [contributing-document-url]: https://github.com/pwnfan/tagmark/blob/main/.github/CONTRIBUTING.md
