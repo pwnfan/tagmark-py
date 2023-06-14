@@ -435,5 +435,6 @@ We welcome you to join the development of tagmark. Please see [contributing docu
 - [ ] validate url availability and set TagmarkItem.valid according to the result
   - [x] github repo url
   - [ ] not github repo url
+- [ ] automatically find a forked repo of invalid github repo, replace the old repo url with forked repo url, and add comment to explain why
 
 [contributing-document-url]: https://github.com/pwnfan/tagmark/blob/main/.github/CONTRIBUTING.md
