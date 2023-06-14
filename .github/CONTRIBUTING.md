@@ -90,13 +90,14 @@ commit message format: `{scope}>{action}: msg`
 
 * `{scope}`:
   * `infra`: infrastructure, fundamental things
-    * `infra.build`: build system or external dependencies(libraries/modules/packages, etc.)
+    * `infra.build`: build system
     * `infra.ci`: CI configuration files and scripts
     * `infra.misc`: miscellaneous things or other things
       * .gitignore
       * .github
       * etc
   * `code`: code of TagMark
+    * `code.dep`: (external) dependencies(libraries/modules/packages, etc.)
     * `code.core`: main core code of TagMark in `core` folder
     * `code.tool`: tool/plugin of TagMark in `tool` folder
     * `code.tests`: testing code of TagMark in `tests` folder
@@ -118,6 +119,7 @@ commit message format: `{scope}>{action}: msg`
     * `modify.perf`: code change that improves performance
     * `modify.style`: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, naming, etc.)
     * `modify.refactor`: code refactor which not relates to fix, perf and style
+    * `modify.update`: update an external dependencies(libraries/modules/packages, etc.)
     * `modify.misc`: miscellaneous things or other things
       * comment
   * `revert`: revert any existing commits
