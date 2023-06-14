@@ -15,6 +15,14 @@ class GetGithubRepoInfoError(Exception):
     pass
 
 
+class GithubRepoNotFoundError(GetGithubRepoInfoError):
+    pass
+
+
+class InvalidGithubAccessTokenError(GetGithubRepoInfoError):
+    pass
+
+
 class GetGithubApiLimitError(Exception):
     pass
 
@@ -74,7 +82,13 @@ class GithubUrl:
             url=f"{github_api_base_url}/repos/{self.owner}/{self.repo}",
             headers={"Authorization": f"token {access_token}"},
         )
-        if _response.status_code != 200:
+        if _response.status_code == requests.codes.UNAUTHORIZED:
+            raise InvalidGithubAccessTokenError(
+                f"invalid github access token {access_token} for url {self.url}"
+            )
+        elif _response.status_code == requests.codes.NOT_FOUND:
+            raise GithubRepoNotFoundError(f"url {self.url} not found")
+        elif _response.status_code != requests.codes.ok:
             raise GetGithubRepoInfoError(
                 f"Failed to retrieve github repository information, response status code is {_response.status_code}"
             )

@@ -8,7 +8,9 @@ from tqdm import tqdm
 from tagmark.core.github import (
     GithubApiLimitReachedError,
     GithubRepoInfo,
+    GithubRepoNotFoundError,
     GithubUrl,
+    InvalidGithubAccessTokenError,
     NotGithubUrlError,
     get_github_api_remaining,
 )
@@ -51,7 +53,7 @@ class TagmarkItem:
             if _k == "github_repo_info" and _v:
                 dict_item[_k] = _v.to_dict(keep_empty_keys=keep_empty_keys)
             else:
-                if _v or keep_empty_keys:
+                if _v is not None or keep_empty_keys:
                     dict_item[_k] = _v
         return dict_item
 
@@ -175,6 +177,12 @@ class Tagmark:
             else:
                 try:
                     _tagmark_item.get_github_repo_info(access_token=access_token)
+                except InvalidGithubAccessTokenError as err:
+                    self.logger.error(url=_tagmark_item.url, msg=err, exc_info=True)
+                    raise
+                except GithubRepoNotFoundError as err:
+                    self._logger.warning(url=_tagmark_item.url, msg=err, exc_info=True)
+                    _tagmark_item.valid = False
                 except Exception as err:
                     self._logger.warning(url=_tagmark_item.url, msg=err, exc_info=True)
 

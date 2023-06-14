@@ -102,7 +102,9 @@ class TestTagmark:
     def test_get_github_repo_infos(
         self,
     ):
-        github_repo_info: GithubRepoInfo = self.tagmark_obj.tagmark_items[0].github_repo_info
+        github_repo_info: GithubRepoInfo = self.tagmark_obj.tagmark_items[
+            0
+        ].github_repo_info
         assert github_repo_info.url is not None
         assert github_repo_info.owner is not None
         assert github_repo_info.name is not None
@@ -119,7 +121,9 @@ class TestTagmark:
         assert github_repo_info.count_release is None  # TODO
         assert github_repo_info.count_conributor is None  # TODO
 
-        github_repo_info: GithubRepoInfo = self.tagmark_obj.tagmark_items[-1].github_repo_info
+        github_repo_info: GithubRepoInfo = self.tagmark_obj.tagmark_items[
+            -1
+        ].github_repo_info
         assert not github_repo_info
 
     def test_dump_to_json_lines(
@@ -127,7 +131,9 @@ class TestTagmark:
     ):
         # test keep_empty_keys==True
         output_path: Path = Path(f"/tmp/tagit_test_{time.time()}.jsonl")
-        self.tagmark_obj.dump_to_json_lines(output_path=output_path, keep_empty_keys=True)
+        self.tagmark_obj.dump_to_json_lines(
+            output_path=output_path, keep_empty_keys=True
+        )
         dict_items: list[dict] = []
 
         with open(output_path, "r") as _f:
@@ -141,7 +147,9 @@ class TestTagmark:
 
         # test keep_empty_keys==False
         output_path: Path = Path(f"/tmp/tagit_test_{time.time()}.jsonl")
-        self.tagmark_obj.dump_to_json_lines(output_path=output_path, keep_empty_keys=False)
+        self.tagmark_obj.dump_to_json_lines(
+            output_path=output_path, keep_empty_keys=False
+        )
         dict_items: list[dict] = []
 
         with open(output_path, "r") as _f:
