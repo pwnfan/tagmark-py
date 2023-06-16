@@ -11,6 +11,8 @@ class TestAutoTagDefinitonMarker:
             # already has a definition
             "active-directory": "Active Directory (AD) is a directory service developed by Microsoft that is used in Windows-based networks.",
             # a prompt has been set for auto marking definition by GPT (the ending `?` is the flag)
+            "adfs": "what is ADFS?",
+            # a prompt has been set for auto marking definition by GPT
             "adversary-emulation": "in cybersecurity, what is Adversary Emulation?",
             # a prompt has been set for auto marking definition by GPT
             "aggregator-site": "what is a aggregator site?",
@@ -24,6 +26,7 @@ class TestAutoTagDefinitonMarker:
             "_get_definition_by_chatgpt",
             side_effect=[
                 "dummy GPT generated definiton",
+                "",
                 Exception("Something went wrong"),
             ],
         )
@@ -36,21 +39,24 @@ class TestAutoTagDefinitonMarker:
         )
         assert auto_tag_make_stats.count_total_tags == len(tag_definitions)
         assert auto_tag_make_stats.count_auto_made_success == 1
-        assert auto_tag_make_stats.count_auto_made_fail == 1
+        assert auto_tag_make_stats.count_auto_made_fail == 2
         assert auto_tag_make_stats.count_already_defined == 1
         assert auto_tag_make_stats.count_no_prompt == 2
         _gpt_results: list[str] = [
+            new_tag_definitions.get("adfs"),
             new_tag_definitions.get("adversary-emulation"),
             new_tag_definitions.get("aggregator-site"),
         ]
         assert any(
             [
+                tag_definitions.get("adfs") in _gpt_results,
                 tag_definitions.get("adversary-emulation") in _gpt_results,
                 tag_definitions.get("aggregator-site") in _gpt_results,
             ]
         )
         assert not all(
             [
+                tag_definitions.get("adfs") in _gpt_results,
                 tag_definitions.get("adversary-emulation") in _gpt_results,
                 tag_definitions.get("aggregator-site") in _gpt_results,
             ]
