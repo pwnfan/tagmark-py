@@ -26,7 +26,7 @@ Here is a page as the demo of TagMark usage, which is all my bookmarks integrate
 Fetures of the page:
 
 - Substantial tag based bookmarks
-  - 1400+ tagged bookmarks, which contain contents below:
+  - 2500+ tagged bookmarks, which contain contents below:
     - cybersecurity
       - red team
       - blue team
@@ -34,8 +34,8 @@ Fetures of the page:
     - software development, devops, devsecops
     - blogs of a person, enterprise, team or organization which refer to the above topics
     - etc
-  - 1000+ curated Github Repos
-  - 600+ tags with detailed tag definitions
+  - 1700+ curated Github Repos
+  - 950+ tags with detailed tag definitions
 - Full featured tags
   - tag definitions (show/hide definition by left click on tags)
   - tag overview with counts
