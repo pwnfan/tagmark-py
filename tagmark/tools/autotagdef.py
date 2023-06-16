@@ -67,7 +67,13 @@ class AutoTagDefinitonMarker:
             if _tag_value.endswith(gpt_prompt_ending_flag):
                 try:
                     _new_tag_value = self._get_definition_by_chatgpt(prompt=_tag_value)
-                    auto_tag_make_stats.count_auto_made_success += 1
+                    # got unexpected empty response
+                    if not _new_tag_value.strip():
+                        auto_tag_make_stats.count_auto_made_fail += 1
+                        # recover tag value to the prompt string
+                        _new_tag_value = _tag_value
+                    else:
+                        auto_tag_make_stats.count_auto_made_success += 1
                 except Exception:
                     self._logger.error(
                         msg=f"Error occurs when getting the definition tag {_tag} from gpt",
