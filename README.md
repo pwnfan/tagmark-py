@@ -52,7 +52,7 @@ Fetures of the page:
   - detailed Github repository information
   - suppressible columns
 
-see [the gif demos on my blog](https://www.pwn.fan/post/en/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#what-is-tagmark).
+see [the gif demos on my blog](https://www.pwn.fan/en/post/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#what-is-tagmark).
 
 I'm glad to share all my bookmarks with you. Welcome to help me enhance this /tagmark page in my blog by:
 
@@ -64,20 +64,20 @@ I'm glad to share all my bookmarks with you. Welcome to help me enhance this /ta
 
 TagMark is a tag based browser bookmark solution for developers.
 
-I have written a blog post [TagMark: Maybe a Better Browser Bookmark Solution](https://pwnfan.github.io/post/en/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/) to introduce TagMark in details with a toc below:
+I have written a blog post [TagMark: Maybe a Better Browser Bookmark Solution](https://pwnfan.github.io/en/post/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/) to introduce TagMark in details with a toc below:
 
-- [What Is TagMark](https://pwnfan.github.io/post/en/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#what-is-tagmark)
-- [What Is A "browser bookmark solution"](https://pwnfan.github.io/post/en/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#what-is-a-browser-bookmark-solution)
-- [Why Do We Need Tags For Bookmarks](https://pwnfan.github.io/post/en/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#why-we-need-tags-for-bookmarks)
-- [Why Not Diigo Bookmark Manager (Diigo My Library))](https://pwnfan.github.io/post/en/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#why-not-diigo-bookmark-manager-diigo-my-library)
-- [TagMark's solution: How to build your own TagMark](https://pwnfan.github.io/post/en/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#tagmarks-solution-how-to-build-your-own-tagmark)
-  - [Generating Your TagMark Data](https://pwnfan.github.io/post/en/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#generating-your-tagmark-data)
-  - [Defining Your Tags With The Help Of ChatGPT](https://pwnfan.github.io/post/en/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#defining-your-tags-with-the-help-of-chatgpt)
-  - [Periodically Upading Your TagMark Data and Tag Definitions](https://pwnfan.github.io/post/en/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#periodically-upading-your-tagmark-data-and-tag-definitions)
-- [Advanced usages](https://pwnfan.github.io/post/en/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#advanced-usages)
-- [FAQ](https://pwnfan.github.io/post/en/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#faq)
+- [What Is TagMark](https://pwnfan.github.io/en/post/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#what-is-tagmark)
+- [What Is A "browser bookmark solution"](https://pwnfan.github.io/en/post/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#what-is-a-browser-bookmark-solution)
+- [Why Do We Need Tags For Bookmarks](https://pwnfan.github.io/en/post/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#why-we-need-tags-for-bookmarks)
+- [Why Not Diigo Bookmark Manager (Diigo My Library))](https://pwnfan.github.io/en/post/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#why-not-diigo-bookmark-manager-diigo-my-library)
+- [TagMark's solution: How to build your own TagMark](https://pwnfan.github.io/en/post/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#tagmarks-solution-how-to-build-your-own-tagmark)
+  - [Generating Your TagMark Data](https://pwnfan.github.io/en/post/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#generating-your-tagmark-data)
+  - [Defining Your Tags With The Help Of ChatGPT](https://pwnfan.github.io/en/post/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#defining-your-tags-with-the-help-of-chatgpt)
+  - [Periodically Upading Your TagMark Data and Tag Definitions](https://pwnfan.github.io/en/post/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#periodically-upading-your-tagmark-data-and-tag-definitions)
+- [Advanced usages](https://pwnfan.github.io/en/post/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#advanced-usages)
+- [FAQ](https://pwnfan.github.io/en/post/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#faq)
 
-I recommend you read the blog first, to save time you can only read the [What is TagMark](https://pwnfan.github.io/post/en/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#what-is-tagmark) section and [TagMark's solution: How to build your own TagMark](https://pwnfan.github.io/post/en/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#tagmarks-solution-how-to-build-your-own-tagmark) section.
+I recommend you read the blog first, to save time you can only read the [What is TagMark](https://pwnfan.github.io/en/post/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#what-is-tagmark) section and [TagMark's solution: How to build your own TagMark](https://pwnfan.github.io/en/post/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#tagmarks-solution-how-to-build-your-own-tagmark) section.
 
 This repository `tagmark`(Python) is a part of the TagMark solution, and this doc is also only for the `tagmark`(Python) part.
 
@@ -169,7 +169,7 @@ Options:
 
 Please refer to section [Core Options Explantation and Design Details](#core-options-explantation-and-design-details) for details of the options.
 
-Please refer to [TagMark: Maybe a Better Browser Bookmark Solution > TagMark's solution: How to build your own TagMark > Generating Your TagMark Data](https://pwnfan.github.io/post/en/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#generating-your-tagmark-data) for usage scenarios of `convert` sub command.
+Please refer to [TagMark: Maybe a Better Browser Bookmark Solution > TagMark's solution: How to build your own TagMark > Generating Your TagMark Data](https://pwnfan.github.io/en/post/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#generating-your-tagmark-data) for usage scenarios of `convert` sub command.
 
 #### Usage Examples
 
@@ -185,7 +185,7 @@ Please refer to [TagMark: Maybe a Better Browser Bookmark Solution > TagMark's s
 #### Core Options Explantation and Design Details
 
 - `-f`: the input file [default: diigo_chrome]
-  - `diigo_chrome`: the Chrome format bookmarks exported from Diigo library, see [my blog](https://pwnfan.github.io/post/en/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#tagmarks-solution) for details
+  - `diigo_chrome`: the Chrome format bookmarks exported from Diigo library, see [my blog](https://pwnfan.github.io/en/post/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#tagmarks-solution) for details
   - `tagmark_jsonlines`: indicate the input file is a tagmark format json-lines file, which is the output file of the `-o` option of this script. This may be confused, but it's not useless, the purpose of using a `-o` output file as the `-i` input file in a next run, is to refresh the Github info(Starts, Forks, Last Commit, etc) of the bookmarks who are Github repos.
 
 - `-k`: whether keep keys with empty values [default: False]. This is to opitmize the output file size by removing the keys with empty values.
@@ -203,8 +203,8 @@ the whole workflow of tagmark:
                     │TagmarkItem │                  │
                     │┌───────────┴┐                 ▼
 ┌───────────┐       └┤TagmarkItem │        ┌────────────────┐       ┌───────────┐
-│    -i     │        │┌───────────┴┐──────▶│Filter Condition│──────▶│    -o     │
-│Input File │───────▶└┤TagmarkItem │       └────────────────┘       │Output File│
+│    -i     │        │┌───────────┴┐──────>│Filter Condition│──────>│    -o     │
+│Input File │───────>└┤TagmarkItem │       └────────────────┘       │Output File│
 └───────────┘         │ ┌──────────┴─┐              ▲               └───────────┘
                       └─┤TagmarkItem │              │
                         │            │     ┌────────┴───────┐
@@ -323,8 +323,8 @@ Options:
 
 Please refer to
 
-- [TagMark: Maybe a Better Browser Bookmark Solution > TagMark's solution: How to build your own TagMark > Defining Your Tags With The Help Of ChatGPT](https://pwnfan.github.io/post/en/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#defining-your-tags-with-the-help-of-chatgpt)
-- [TagMark: Maybe a Better Browser Bookmark Solution > TagMark's solution: How to build your own TagMark > Periodically Upading Your TagMark Data and Tag Definitions](https://pwnfan.github.io/post/en/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#periodically-upading-your-tagmark-data-and-tag-definitions)
+- [TagMark: Maybe a Better Browser Bookmark Solution > TagMark's solution: How to build your own TagMark > Defining Your Tags With The Help Of ChatGPT](https://pwnfan.github.io/en/post/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#defining-your-tags-with-the-help-of-chatgpt)
+- [TagMark: Maybe a Better Browser Bookmark Solution > TagMark's solution: How to build your own TagMark > Periodically Upading Your TagMark Data and Tag Definitions](https://pwnfan.github.io/en/post/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#periodically-upading-your-tagmark-data-and-tag-definitions)
 
 for usage scenarios of `checktag` sub command.
 #### Usage Examples
@@ -379,8 +379,8 @@ Options:
 
 Please refer to
 
-- [TagMark: Maybe a Better Browser Bookmark Solution > TagMark's solution: How to build your own TagMark > Defining Your Tags With The Help Of ChatGPT](https://pwnfan.github.io/post/en/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#defining-your-tags-with-the-help-of-chatgpt)
-- [TagMark: Maybe a Better Browser Bookmark Solution > TagMark's solution: How to build your own TagMark > Periodically Upading Your TagMark Data and Tag Definitions](https://pwnfan.github.io/post/en/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#periodically-upading-your-tagmark-data-and-tag-definitions)
+- [TagMark: Maybe a Better Browser Bookmark Solution > TagMark's solution: How to build your own TagMark > Defining Your Tags With The Help Of ChatGPT](https://pwnfan.github.io/en/post/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#defining-your-tags-with-the-help-of-chatgpt)
+- [TagMark: Maybe a Better Browser Bookmark Solution > TagMark's solution: How to build your own TagMark > Periodically Upading Your TagMark Data and Tag Definitions](https://pwnfan.github.io/en/post/TagMark-Maybe-a-Better-Browser-Bookmark-Solution/#periodically-upading-your-tagmark-data-and-tag-definitions)
 
 for usage scenarios of `autotagdef` sub command.
 
