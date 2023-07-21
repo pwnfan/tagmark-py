@@ -119,7 +119,7 @@ class TestTagmark:
         assert github_repo_info.count_branch is None  # TODO
         assert github_repo_info.count_tag is None  # TODO
         assert github_repo_info.count_release is None  # TODO
-        assert github_repo_info.count_conributor is None  # TODO
+        assert github_repo_info.count_contributor is None  # TODO
 
         github_repo_info: GithubRepoInfo = self.tagmark_obj.tagmark_items[
             -1

@@ -47,7 +47,7 @@ class GithubRepoInfo:
     count_branch: int | None = None
     count_tag: int | None = None
     count_release: int | None = None
-    count_conributor: int | None = None
+    count_contributor: int | None = None
     topics: list[str] = field(default_factory=list)  # tags by github
 
     def to_dict(self, keep_empty_keys=False) -> dict:
@@ -108,7 +108,7 @@ class GithubUrl:
             count_branch=None,  # TODO
             count_tag=None,  # TODO
             count_release=None,  # TODO
-            count_conributor=None,  # TODO
+            count_contributor=None,  # TODO
             topics=_raw_repo_info.get("topics"),
         )
 
