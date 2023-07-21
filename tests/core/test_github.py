@@ -2,6 +2,7 @@ import os
 
 import pytest
 
+from tagmark.core import Timestamp
 from tagmark.core.github import (
     GithubRepoNotFoundError,
     GithubUrl,
@@ -71,6 +72,13 @@ class TestGithubUrl:
         assert github_url.repo_info.count_release is None  # TODO
         assert github_url.repo_info.count_contributor is None  # TODO
         assert len(github_url.repo_info.topics) >= 0
+
+        after_hours = 1
+        assert github_url.repo_info.need_update(after_hours=after_hours) is False
+        github_url.repo_info.timestamp_last_update_self -= Timestamp(
+            after_hours * 60 * 60 + 100
+        )
+        assert github_url.repo_info.need_update(after_hours=after_hours) is True
 
 
 def test_get_github_api_remaining():

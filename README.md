@@ -155,16 +155,20 @@ Options:
   -k, --keep_empty_keys BOOLEAN   whether keep keys with empty values
                                   [default: False]
   -c, --condition-json-path FILE  json file containing the condition for
-                                  fitlering TagmarkItem  [default: /Users/pwn
-                                  an/Desktop/Projects/tagmark/tagmark/conditi
-                                  on_example.json]
+                                  fitlering TagmarkItem  [default:
+                                  /workspaces/tagmark-
+                                  py/tagmark/condition_example.json]
   -b, --is-ban-condition BOOLEAN  If set to True, a TagmarkItem hits the
                                   `condition` will be banned, or it will be
                                   remained  [default: True]
   -t, --github_token TEXT         the GITHUB_TOKEN to access Github API,
                                   default will read from the .env file of the
                                   root dir of this project
-  --help                          Show this message and exit.
+  -u, --update-github-info-after-hours FLOAT
+                                  nly update after the specified number of
+                                  hours has passed since the last update
+                                  [default: 23]
+  -h, --help                      Show this message and exit.
 ```
 
 Please refer to section [Core Options Explantation and Design Details](#core-options-explantation-and-design-details) for details of the options.
@@ -177,9 +181,10 @@ Please refer to [TagMark: Maybe a Better Browser Bookmark Solution > TagMark's s
 # convert from Diigo output(Chrome format) into TagMark json-lines format file tagmark_ui_data.jsonl
 (py311) ➜  tagmark_cli convert -i data/16400249_chrome_2023_04_24_0a65e.html -f diigo_chrome
 
-# actually not for convertion, but for refreshing Github repo information in the file tagmark_ui_data.jsonl
-# and output into a new file new_tagmark_ui_data.jsonl
-(py311) ➜  tagmark_cli convert -i data/tagmark_ui_data.jsonl -f tagmark_jsonlines -o new_tagmark_ui_data.jsonl
+# actually not for conversion, but for refreshing Github repo information in the file tagmark_ui_data.jsonl
+# and output into a new file new_tagmark_ui_data.jsonl, however if the one Github repo information has been 
+# updated less than 12 hours, it will not be refreshed this time
+(py311) ➜  tagmark_cli convert -i data/tagmark_ui_data.jsonl -f tagmark_jsonlines -o new_tagmark_ui_data.jsonl -u 12
 ```
 
 #### Core Options Explantation and Design Details
@@ -436,6 +441,6 @@ We welcome you to join the development of tagmark. Please see [contributing docu
   - [x] github repo url
   - [ ] not github repo url
 - [ ] automatically find a forked repo of invalid github repo, replace the old repo url with forked repo url, and add comment to explain why
-- [ ] only update after the specified number of hours has passed since the last update.
+- [x]  update github info only when user specified number of hours has passed since the last update.
 
 [contributing-document-url]: https://github.com/pwnfan/tagmark/blob/main/.github/CONTRIBUTING.md

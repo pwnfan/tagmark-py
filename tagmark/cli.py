@@ -39,7 +39,11 @@ def cli():
     pass
 
 
-@cli.command(help="convert other bookmark formats into Tagmark format(json-lines)")
+@cli.command(
+    context_settings=dict(help_option_names=["-h", "--help"]),
+    no_args_is_help=True,
+    help="convert other bookmark formats into Tagmark format(json-lines)",
+)
 @click.option(
     "-i",
     "--input-file-path",
@@ -95,6 +99,14 @@ def cli():
     show_default=False,
     help="the GITHUB_TOKEN to access Github API, default will read from the .env file of the root dir of this project",
 )
+@click.option(
+    "-u",
+    "--update-github-info-after-hours",
+    type=float,
+    default=23,
+    show_default=True,
+    help="update github info only when user specified number of hours has passed since the last update",
+)
 def convert(
     input_file_path: str,
     format: str,
@@ -103,6 +115,7 @@ def convert(
     condition_json_path: str,
     is_ban_condition: bool,
     github_token: str,
+    update_github_info_after_hours: float,
 ):
     converter: BaseConverter = None
     match format:
@@ -121,6 +134,7 @@ def convert(
         converter.tagmark.get_github_repo_infos(
             access_token=github_token,
             condition=condition,
+            after_hours=update_github_info_after_hours,
             is_ban_condition=is_ban_condition,
         )
         converter.tagmark.dump_to_json_lines(
@@ -135,7 +149,11 @@ def convert(
         )
 
 
-@cli.command(help="check every tag has a definition")
+@cli.command(
+    context_settings=dict(help_option_names=["-h", "--help"]),
+    no_args_is_help=True,
+    help="check every tag has a definition",
+)
 @click.option(
     "-t",
     "--tagmark-data-file-path",
@@ -255,7 +273,11 @@ def checktag(
                 )
 
 
-@cli.command(help="get tag definition automatically by ChatGPT")
+@cli.command(
+    context_settings=dict(help_option_names=["-h", "--help"]),
+    no_args_is_help=True,
+    help="get tag definition automatically by ChatGPT",
+)
 @click.option(
     "-d",
     "--tag-definition-file-path",
@@ -354,3 +376,7 @@ def autotagdef(
             msg="statistics",
             auto_tag_make_stats=auto_tag_make_stats,
         )
+
+
+if __name__ == "__main__":
+    cli()

@@ -1,10 +1,11 @@
 import json
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Iterable, NewType
+from typing import Iterable
 
 from tqdm import tqdm
 
+from tagmark.core import Timestamp
 from tagmark.core.github import (
     GithubApiLimitReachedError,
     GithubRepoInfo,
@@ -15,8 +16,6 @@ from tagmark.core.github import (
     get_github_api_remaining,
 )
 from tagmark.core.log import LogHandler, LogLevel, get_level_logger
-
-Timestamp: type = NewType("Timestamp", float)
 
 
 @dataclass
@@ -29,10 +28,9 @@ class TagmarkItem:
     description: str | None = None
     comment: str | None = None
     is_github_url: bool = False
-    github_repo_info: GithubRepoInfo | None = field(default=None, init=False)
+    github_repo_info: GithubRepoInfo | None = field(default=None, init=True)
     extra_info: dict | None = None
     time_added: Timestamp | None = None
-    time_updated: Timestamp | None = None
 
     def __post_init__(self):
         if GithubUrl.is_github_url(self.url):
@@ -147,25 +145,48 @@ class Tagmark:
                 _all_tags.update(_tagmark_item.tags)
         return _all_tags
 
+    def _count_need_update_github_repo_info(self, after_hours: float) -> int:
+        count: int = 0
+        for _item in self.tagmark_items:
+            if _item.is_github_url:
+                if not _item.github_repo_info or _item.github_repo_info.need_update(
+                    after_hours=after_hours
+                ):
+                    count += 1
+        return count
+
     def get_github_repo_infos(
         self,
         access_token: str,
         condition: dict = {},
+        after_hours: float = 48,
         is_ban_condition=True,
     ):
-        if self.count_github_url <= 0:
+        _count_need_update: int = self._count_need_update_github_repo_info(
+            after_hours=after_hours
+        )
+        if _count_need_update <= 0:
             return
+        self._logger.info(_count_need_update=_count_need_update)
+
         _github_api_remaining: int = get_github_api_remaining(access_token=access_token)
         self._logger.info(_github_api_remaining=_github_api_remaining)
-        if self.count_github_url > _github_api_remaining:
+        if _count_need_update > _github_api_remaining:
             raise GithubApiLimitReachedError(
-                f"API limit reached, needs {self.count_github_url}, remaining {_github_api_remaining}"
+                f"API limit reached, needs {_count_need_update}, remaining {_github_api_remaining}"
             )
         for _tagmark_item in tqdm(
             iterable=self.tagmark_items,
             desc="retrieving Github repository information",
         ):
             if not _tagmark_item.is_github_url:
+                continue
+            elif (
+                _tagmark_item.github_repo_info
+                and not _tagmark_item.github_repo_info.need_update(
+                    after_hours=after_hours
+                )
+            ):
                 continue
             elif (
                 is_ban_condition and _tagmark_item.hits_condition(condition=condition)
@@ -200,7 +221,7 @@ class Tagmark:
             output_path (Path): output path of the json-lines file
             keep_empty_keys (bool, optional): whether keep the keys with empty value when dumping.
                 Defaults to False.
-            condition (dict, optional): the condition for fitlering TagmarkItem. Defaults to {}.
+            condition (dict, optional): the condition for filtering TagmarkItem. Defaults to {}.
             is_ban_condition (bool, optional): If set to True, a TagmarkItem hits the `condition`
                 will be banned, or it will be remained. Defaults to True.
         """

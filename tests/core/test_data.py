@@ -53,10 +53,13 @@ class TestTagmark:
                 "oss",
             ],
         }
+
+        assert cls.tagmark_obj._count_need_update_github_repo_info(after_hours=1) == 2
         _access_token = os.environ.get("GITHUB_TOKEN")
         cls.tagmark_obj.get_github_repo_infos(
             access_token=_access_token, condition=ban_condition, is_ban_condition=True
         )
+        assert cls.tagmark_obj._count_need_update_github_repo_info(after_hours=1) == 0
 
     def test_add(
         self,
@@ -83,12 +86,6 @@ class TestTagmark:
                 ]
             )
 
-    def test_count_github_url(self):
-        assert self.tagmark_obj.count_github_url == 2
-
-    def test_all_tags(self):
-        assert len(self.tagmark_obj.all_tags) == 8
-
     def test_sort(
         self,
     ):
@@ -98,6 +95,12 @@ class TestTagmark:
         assert list(_.url for _ in _sorted_tagit_items) == list(
             reversed([_.url for _ in self.tagmark_obj.tagmark_items])
         )
+
+    def test_count_github_url(self):
+        assert self.tagmark_obj.count_github_url == 2
+
+    def test_all_tags(self):
+        assert len(self.tagmark_obj.all_tags) == 8
 
     def test_get_github_repo_infos(
         self,

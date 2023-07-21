@@ -3,8 +3,9 @@ from html.parser import HTMLParser
 from pathlib import Path
 from typing import Iterable
 
+from tagmark.core import Timestamp
 from tagmark.core.convert import BaseConverter
-from tagmark.core.data import TagmarkItem, Timestamp
+from tagmark.core.data import TagmarkItem
 
 
 class ChromeConverter(BaseConverter):

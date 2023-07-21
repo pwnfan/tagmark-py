@@ -1,10 +1,12 @@
+import time
 from dataclasses import asdict, dataclass, field
-from datetime import datetime
 from urllib.parse import ParseResult, urlparse
 
 import requests
 
-github_api_base_url = "https://api.github.com"
+from tagmark.core import Timestamp
+
+github_api_base_url: str = "https://api.github.com"
 
 
 class NotGithubUrlError(Exception):
@@ -38,9 +40,9 @@ class GithubRepoInfo:
     name: str | None = None
     is_archived: bool | None = None
     description: str | None = None
-    time_created: datetime | None = None
-    time_last_commit: datetime | None = None
-    time_last_release: datetime | None = None
+    time_created: str | None = None
+    time_last_commit: str | None = None
+    time_last_release: str | None = None
     count_star: int | None = None
     count_fork: int | None = None
     count_watcher: int | None = None
@@ -49,12 +51,26 @@ class GithubRepoInfo:
     count_release: int | None = None
     count_contributor: int | None = None
     topics: list[str] = field(default_factory=list)  # tags by github
+    timestamp_last_update_self: Timestamp | None = None
 
     def to_dict(self, keep_empty_keys=False) -> dict:
         _dict_item: dict = asdict(self)
         if not keep_empty_keys:
             [_dict_item.pop(_k) for _k, _v in _dict_item.copy().items() if not _v]
         return _dict_item
+
+    def need_update(self, after_hours: float) -> bool:
+        need_update_: bool = False
+        if self and self.url:
+            if not self.timestamp_last_update_self:
+                need_update_ = True
+            else:
+                if (
+                    time.time() - self.timestamp_last_update_self
+                    >= after_hours * 60 * 60
+                ):
+                    need_update_ = True
+        return need_update_
 
 
 @dataclass
@@ -110,6 +126,7 @@ class GithubUrl:
             count_release=None,  # TODO
             count_contributor=None,  # TODO
             topics=_raw_repo_info.get("topics"),
+            timestamp_last_update_self=time.time(),
         )
 
     @classmethod
