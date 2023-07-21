@@ -4,7 +4,13 @@ First of all, thanks for taking your time to contribute and help make our projec
 
 ## Guides
 
-### Setup Development Environment
+### Development Environment Setup
+
+First please enter the root directory of `tagmark`.
+
+#### 1. Setup Python and Poetry
+
+##### Option 1: Using self-created virtual env
 
 **Step 1** create you and enter virtual environment:
 
@@ -23,14 +29,7 @@ here we take mamba(conda) as example:
 
 **Step 3** fork and clone the tagmark repo
 
-**Step 4** install tagmark dependencies
-
-```bash
-(testvenv) ➜  cd tagmark
-(testvenv) ➜  tagmark git:(dev) ✗ poetry install
-```
-
-**Step 5** if your IDE is vscode, here are the recommended settings
+**Step 4** if your IDE is vscode, here are the recommended settings
 
 `.vscode/launch.json`:
 
@@ -39,16 +38,22 @@ here we take mamba(conda) as example:
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: Current File",
+            "name": "Python: Module",
             "type": "python",
             "request": "launch",
-            "program": "${file}",
-            "console": "integratedTerminal",
+            "cwd": "${workspaceRoot}",
+            "module": "tagmark.cli",
             "justMyCode": false,
-            "cwd": "${workspaceFolder}",
-            "env": {
-                "PYTHONPATH": "${workspaceFolder}"
-            }
+            "args": [
+                // args for debug, change according to your needs 
+                "convert",
+                "-i",
+                "data/tagmark_ui_data.jsonl",
+                "-f",
+                "tagmark_jsonlines",
+                "-o",
+                "data/new_tagmark_ui_data.jsonl"
+            ]
         }
     ]
 }
@@ -58,30 +63,112 @@ here we take mamba(conda) as example:
 
 ```json
 {
-    "python.formatting.provider": "black",
-    "python.testing.pytestArgs": ["tests"],
+    "python.testing.pytestArgs": [
+        "tests"
+    ],
     "python.testing.unittestEnabled": false,
-    "python.testing.pytestEnabled": true
+    "python.testing.pytestEnabled": true,
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter"
+    },
+    "python.formatting.provider": "none",
 }
 ```
 
-**Step 6** create a PAT and store it into the `.env` file in your local tagmark source dir, the details has been refered in [README > Installation > Step 4](../README.md#Installation)
+##### Option 2: Using VSCode + devcontainer
 
-### Build
+**Step 1** run Docker daemon
 
-in the root directory of tagmark, run:
+**Step 2** Build devcontainer image and start container:
+
+in a new VSCode win, press Ctrl+Shift+P(windows) / Command+Shift+P(MacOS) to open `Command Palette` and select `Dev container: Clone Repository in Container Volume...`, you may be required to enter these/choose things:
+  * `git repo url``: <https://github.com/pwnfan/tagmark.git>
+  * Python version: you should select version >= 3.11
+  * Linux Distribution: I selected the first one(an alias of a specified version of ubuntu), but I did not test the others. You can try what you like.
+
+after a while the image will be built and the container will be run, the VSCode windows will be reloaded and the git repo will show up.
+
+#### 2. Setup GITHUB_TOKEN
+
+create a PAT and store it into the `.env` file in your local tagmark source dir, the details has been referred in [README > Installation > Step 4](../README.md#Installation)
+
+
+#### 3. Install TagMark Dependencies
+
+##### Option 1: Using make Command
+
+
+```bash
+make install
+```
+
+##### Option 2: Run Original Command(s)
+
+
+```bash
+poetry install
+```
+
+#### 4. Linting
+
+##### Option 1: Using make Command
+
+```bash
+make lint
+```
+
+##### Option 2: Run Original Command(s)
+
+
+```bash
+black .
+isort --profile black .
+flake8 --ignore=E501,W503 .
+```
+
+#### 5. Testing
+
+##### Option 1: Using make Command
+
+```bash
+make test
+```
+
+##### Option 2: Run Original Command(s)
+
+
+```bash
+poetry run pytest -v --cov=tagmark tests/
+```
+
+#### 6. Build
+
+##### Option 1: Using make command
+
+```bash
+make build
+```
+
+##### Option 2: Run Original Command(s)
 
 ```bash
 poetry build
 ```
 
-### Run Tests
+#### 7. Clean Up
 
-in the root directory of this project run
+##### Option 1: Using make command
 
 ```bash
-# run test
-poetry run pytest -v --cov=tagmark tests/
+make clean
+```
+
+##### Option 2: Run Original Command(s)
+
+
+```bash
+rm -rf dist
+rm -rf .coverage
 ```
 
 ### Commit Messages Rules
@@ -104,7 +191,7 @@ commit message format: `{scope}>{action}: msg`
     * `code.misc`: miscellaneous things or other things
     * `code.data`: any data used by code
   * `data`
-    * any data not userd by code
+    * any data not used by code
     * the final output/result of the code execution
     * etc
   * `docs`: documentation
@@ -132,14 +219,8 @@ The subject contains a succinct description of the change, like Update code high
 * Use the imperative, present tense: "change" not "changed" nor "changes".
 
 
-### Code Style and Lint
+### Code Style
 
-please run the linter command bellow to format your code before pushing your pull request:
+please run the linter command in [4. Linting](#4-linting) to format your code before pushing your pull request.
 
-```bash
-flake8 --ignore=E501,W503 .
-black .
-isort --profile black .
-```
-
-these commands will also be run in the CI progress auto triggerrd by Github Actions to check the style of your code when you push your pull request. If the check failed your pull request is not able to be merged.
+The Linting commands will also be run in the CI progress auto triggered by Github Actions to check the style of your code when you push your pull request to `dev` branch. If the check failed your pull request is not able to be merged.
