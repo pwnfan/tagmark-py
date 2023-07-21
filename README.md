@@ -165,9 +165,9 @@ Options:
                                   default will read from the .env file of the
                                   root dir of this project
   -u, --update-github-info-after-hours FLOAT
-                                  nly update after the specified number of
-                                  hours has passed since the last update
-                                  [default: 23]
+                                  update github info only when user specified
+                                  number of hours has passed since the last
+                                  update  [default: 23]
   -h, --help                      Show this message and exit.
 ```
 
@@ -443,4 +443,4 @@ We welcome you to join the development of tagmark. Please see [contributing docu
 - [ ] automatically find a forked repo of invalid github repo, replace the old repo url with forked repo url, and add comment to explain why
 - [x]  update github info only when user specified number of hours has passed since the last update.
 
-[contributing-document-url]: https://github.com/pwnfan/tagmark/blob/main/.github/CONTRIBUTING.md
+[contributing-document-url]: .github/CONTRIBUTING.md
