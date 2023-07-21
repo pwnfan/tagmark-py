@@ -16,7 +16,8 @@
 				"ms-python.python",
 				"njpwerner.autodocstring",
 				"streetsidesoftware.code-spell-checker",
-				"donjayamanne.githistory"
+				"donjayamanne.githistory",
+				"ms-vscode.makefile-tools"
 			]
 		}
 	}
