@@ -427,7 +427,7 @@ All values in condition file is **case-sensitive**.
 - [ChatGPT](https://chat.openai.com/)
 - [Diigo](https://www.diigo.com/)
 
-## Contributing
+## Contributing and Development Guide
 
 We welcome you to join the development of tagmark. Please see [contributing document][contributing-document-url]
 

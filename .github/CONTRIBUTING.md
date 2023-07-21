@@ -171,6 +171,40 @@ rm -rf dist
 rm -rf .coverage
 ```
 
+#### 8. Generating Changelog
+
+##### Option 1: Using make command
+
+```bash
+make changelog V_OLD=v0.1.0 V_NEW=v0.2.0 OUT_FILE=changelog.txt
+```
+
+* `V_OLD``: the starting(older) version number of Git, its optional values are:
+  * Git commit hash
+  * Git tag
+* `V_NEW``: the ending(newer) version number of Git, its optional values are:
+  * Git commit hash
+  * Git tag
+  * HEAD
+* `OUT_FILE`: the path of the output file
+
+
+##### Option 2: Run Original Command(s)
+
+
+```bash
+git log V_OLD..V_NEW --oneline --abbrev-commit --pretty="* %h %s" > OUT_FILE;
+```
+
+the meaning of the arguments are the same as before.
+
+example:
+
+```bash
+git log v0.1.0..v0.2.0 --oneline --abbrev-commit --pretty="* %h %s" > changelog.txt
+```
+
+
 ### Commit Messages Rules
 
 commit message format: `{scope}>{action}: msg`
@@ -182,6 +216,7 @@ commit message format: `{scope}>{action}: msg`
     * `infra.misc`: miscellaneous things or other things
       * .gitignore
       * .github
+      * Makefile
       * etc
   * `code`: code of TagMark
     * `code.dep`: (external) dependencies(libraries/modules/packages, etc.)

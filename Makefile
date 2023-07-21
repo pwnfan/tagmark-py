@@ -20,4 +20,8 @@ clean: ;@echo "Cleaning ${PROJECT}.....\n"; \
     rm -rf dist; \
 	rm -rf .coverage
 
-.PHONY: install lint test build clean
+changelog: ;@echo "Making ${PROJECT} Changelog......\n"; \
+	git log $(V_OLD)..$(V_NEW) --oneline --abbrev-commit --pretty="* %h %s" > $(OUT_FILE); \
+	echo "changelog between $(V_OLD) and $(V_NEW) has been written into file $(OUT_FILE)"
+
+.PHONY: install lint test build clean xxx
