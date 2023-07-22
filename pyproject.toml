@@ -3,7 +3,7 @@ name = "tagmark"
 version = "0.2.0"
 description = "tagify bookmarks and show them in a table page with advanced filters and tagcloud"
 authors = ["pwnfan <pwnfan@proton.me>"]
-readme = "README.md"
+readme = "docs/README.md"
 packages = [{include = "tagmark"}]
 
 [tool.poetry.dependencies]

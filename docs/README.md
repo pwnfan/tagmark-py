@@ -13,8 +13,9 @@
     - [sub command: autotagdef](#sub-command-autotagdef)
       - [Usage Examples](#usage-examples-2)
     - [Condition File Details](#condition-file-details)
+  - [Changelog](#changelog)
   - [Acknowledgments](#acknowledgments)
-  - [Contributing](#contributing)
+  - [Contributing and Development Guide](#contributing-and-development-guide)
   - [TODO](#todo)
 
 ## Features And Demo
@@ -26,7 +27,7 @@ Here is a page as the demo of TagMark usage, which is all my bookmarks integrate
 Fetures of the page:
 
 - Substantial tag based bookmarks
-  - 2500+ tagged bookmarks, which contain contents below:
+  - 2600+ tagged bookmarks, which contain contents below:
     - cybersecurity
       - red team
       - blue team
@@ -34,8 +35,8 @@ Fetures of the page:
     - software development, devops, devsecops
     - blogs of a person, enterprise, team or organization which refer to the above topics
     - etc
-  - 1700+ curated Github Repos
-  - 950+ tags with detailed tag definitions
+  - 1800+ curated Github Repos
+  - 1000+ tags with detailed tag definitions
 - Full featured tags
   - tag definitions (show/hide definition by left click on tags)
   - tag overview with counts
@@ -420,6 +421,10 @@ Note that not all keys in TagmarkItem are supported in condition filter files, h
 
 All values in condition file is **case-sensitive**.
 
+## Changelog
+
+see [docs/CHANGELOG.md](CHANGELOG.md)
+
 ## Acknowledgments
 
 - [tqdm](https://github.com/tqdm/tqdm)
@@ -429,7 +434,7 @@ All values in condition file is **case-sensitive**.
 
 ## Contributing and Development Guide
 
-We welcome you to join the development of tagmark. Please see [contributing document][contributing-document-url]
+We welcome you to join the development of tagmark. Please see [docs/CONTRIBUTING.md][contributing-document-url]
 
 ## TODO
 
@@ -443,4 +448,4 @@ We welcome you to join the development of tagmark. Please see [contributing docu
 - [ ] automatically find a forked repo of invalid github repo, replace the old repo url with forked repo url, and add comment to explain why
 - [x]  update github info only when user specified number of hours has passed since the last update.
 
-[contributing-document-url]: .github/CONTRIBUTING.md
+[contributing-document-url]: CONTRIBUTING.md
