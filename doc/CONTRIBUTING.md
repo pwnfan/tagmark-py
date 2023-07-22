@@ -2,6 +2,35 @@
 
 First of all, thanks for taking your time to contribute and help make our project even better than it is today! The following is a set of guidelines for contributing to TagMark. These are mostly guidelines, not rules. Use your best judgment, and feel free to propose changes to this document in a pull request.
 
+- [TagMark](#tagmark)
+  - [Guides](#guides)
+    - [Development Environment Setup](#development-environment-setup)
+      - [1. Setup Python and Poetry](#1-setup-python-and-poetry)
+        - [Option 1: Using self-created virtual env](#option-1-using-self-created-virtual-env)
+        - [Option 2: Using VSCode + devcontainer](#option-2-using-vscode--devcontainer)
+      - [2. Setup GITHUB\_TOKEN](#2-setup-github_token)
+      - [3. Install TagMark Dependencies](#3-install-tagmark-dependencies)
+        - [Option 1: Using make Command](#option-1-using-make-command)
+        - [Option 2: Run Original Command(s)](#option-2-run-original-commands)
+      - [4. Linting](#4-linting)
+        - [Option 1: Using make Command](#option-1-using-make-command-1)
+        - [Option 2: Run Original Command(s)](#option-2-run-original-commands-1)
+      - [5. Testing](#5-testing)
+        - [Option 1: Using make Command](#option-1-using-make-command-2)
+        - [Option 2: Run Original Command(s)](#option-2-run-original-commands-2)
+      - [6. Build](#6-build)
+        - [Option 1: Using make command](#option-1-using-make-command-3)
+        - [Option 2: Run Original Command(s)](#option-2-run-original-commands-3)
+      - [7. Clean Up](#7-clean-up)
+        - [Option 1: Using make command](#option-1-using-make-command-4)
+        - [Option 2: Run Original Command(s)](#option-2-run-original-commands-4)
+      - [8. Generating Changelog](#8-generating-changelog)
+        - [Option 1: Using make command](#option-1-using-make-command-5)
+        - [Option 2: Run Original Command(s)](#option-2-run-original-commands-5)
+    - [Commit Messages Rules](#commit-messages-rules)
+    - [Code Style](#code-style)
+
+
 ## Guides
 
 ### Development Environment Setup
@@ -90,7 +119,7 @@ after a while the image will be built and the container will be run, the VSCode 
 
 #### 2. Setup GITHUB_TOKEN
 
-create a PAT and store it into the `.env` file in your local tagmark source dir, the details has been referred in [README > Installation > Step 4](../README.md#Installation)
+create a PAT and store it into the `.env` file in your local tagmark source dir, the details has been referred in [README > Installation > Step 4](README.md#Installation)
 
 
 #### 3. Install TagMark Dependencies

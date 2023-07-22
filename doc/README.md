@@ -13,8 +13,9 @@
     - [sub command: autotagdef](#sub-command-autotagdef)
       - [Usage Examples](#usage-examples-2)
     - [Condition File Details](#condition-file-details)
+  - [Changelog](#changelog)
   - [Acknowledgments](#acknowledgments)
-  - [Contributing](#contributing)
+  - [Contributing and Development Guide](#contributing-and-development-guide)
   - [TODO](#todo)
 
 ## Features And Demo
@@ -420,6 +421,10 @@ Note that not all keys in TagmarkItem are supported in condition filter files, h
 
 All values in condition file is **case-sensitive**.
 
+## Changelog
+
+see [CHANGELOG.md](CHANGELOG.md)
+
 ## Acknowledgments
 
 - [tqdm](https://github.com/tqdm/tqdm)
@@ -443,4 +448,4 @@ We welcome you to join the development of tagmark. Please see [contributing docu
 - [ ] automatically find a forked repo of invalid github repo, replace the old repo url with forked repo url, and add comment to explain why
 - [x]  update github info only when user specified number of hours has passed since the last update.
 
-[contributing-document-url]: .github/CONTRIBUTING.md
+[contributing-document-url]: CONTRIBUTING.md
