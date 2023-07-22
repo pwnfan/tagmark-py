@@ -17,7 +17,9 @@
 				"njpwerner.autodocstring",
 				"streetsidesoftware.code-spell-checker",
 				"donjayamanne.githistory",
-				"ms-vscode.makefile-tools"
+				"ms-vscode.makefile-tools",
+				"yzhang.markdown-all-in-one",
+				"shd101wyy.markdown-preview-enhanced"
 			]
 		}
 	}
