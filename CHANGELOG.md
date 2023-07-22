@@ -24,4 +24,4 @@ Order: The higher up, the newer.
 
 ## v0.1.0
 
-- finished basic features
+* finished basic features

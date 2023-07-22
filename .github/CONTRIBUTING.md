@@ -179,31 +179,28 @@ rm -rf .coverage
 make changelog V_OLD=v0.1.0 V_NEW=v0.2.0 OUT_FILE=changelog.txt
 ```
 
-* `V_OLD``: the starting(older) version number of Git, its optional values are:
+* `V_OLD`: an older(starting) Git commit version number, its optional values are:
   * Git commit hash
   * Git tag
-* `V_NEW``: the ending(newer) version number of Git, its optional values are:
+* `V_NEW`: a newer(ending) Git commit version number, its optional values are:
   * Git commit hash
   * Git tag
-  * HEAD
+  * HEAD, HEAD^, HEAD~3, etc.
 * `OUT_FILE`: the path of the output file
 
-
 ##### Option 2: Run Original Command(s)
-
 
 ```bash
 git log V_OLD..V_NEW --oneline --abbrev-commit --pretty="* %h %s" > OUT_FILE;
 ```
 
-the meaning of the arguments are the same as before.
+the meaning of the arguments are the same as those in [Option 1: Using make command](#option-1-using-make-command-5).
 
 example:
 
 ```bash
 git log v0.1.0..v0.2.0 --oneline --abbrev-commit --pretty="* %h %s" > changelog.txt
 ```
-
 
 ### Commit Messages Rules
 
@@ -252,7 +249,6 @@ The subject contains a succinct description of the change, like Update code high
 
 * No dot (.) at the end.
 * Use the imperative, present tense: "change" not "changed" nor "changes".
-
 
 ### Code Style
 
