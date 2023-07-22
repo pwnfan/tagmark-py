@@ -135,4 +135,4 @@ dmypy.json
 .vscode
 
 # Tagmark
-/data
+data
