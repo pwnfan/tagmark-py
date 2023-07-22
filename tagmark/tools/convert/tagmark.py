@@ -8,7 +8,7 @@ from tagmark.core.convert import BaseConverter
 from tagmark.core.data import TagmarkItem
 
 
-class JsonLinesConverer(BaseConverter):
+class JsonLinesConverter(BaseConverter):
     def _convert_to_tagmark_item(self, item: dict) -> TagmarkItem:
         return from_dict(data_class=TagmarkItem, data=item)
 

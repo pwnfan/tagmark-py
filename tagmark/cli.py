@@ -122,7 +122,7 @@ def convert(
         case "diigo_chrome":
             converter = diigo.ChromeConverter()
         case "tagmark_jsonlines":
-            converter = tagmark_convert.JsonLinesConverer()
+            converter = tagmark_convert.JsonLinesConverter()
         case _:
             raise ValueError(f"unsupported format: {format}")
     _items: list[dict] = converter.load_original_items(
@@ -198,7 +198,7 @@ def checktag(
     no_def_tag_value_placeholder: str,
 ):
     # load tagmark data from file
-    _converter: tagmark_convert.JsonLinesConverer = tagmark_convert.JsonLinesConverer()
+    _converter: tagmark_convert.JsonLinesConverter = tagmark_convert.JsonLinesConverter()
     _items: list[dict] = _converter.load_original_items(
         data_source=Path(tagmark_data_file_path)
     )

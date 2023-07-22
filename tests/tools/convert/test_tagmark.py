@@ -2,11 +2,11 @@ import json
 from pathlib import Path
 
 from tagmark.core.convert import TagsCheckResult
-from tagmark.tools.convert.tagmark import JsonLinesConverer
+from tagmark.tools.convert.tagmark import JsonLinesConverter
 
 
 class TestJsonlinesConverter:
-    jsonlines_converter: JsonLinesConverer = JsonLinesConverer()
+    jsonlines_converter: JsonLinesConverter = JsonLinesConverter()
     test_data_file: Path = Path("tests/data/tagmark_ui_data_1682298863.158216.jsonl")
     test_tag_definition_file: Path = Path("tests/data/tag_definitions.json")
     test_ban_condition_file: Path = Path("tests/data/ban-condition.json")
