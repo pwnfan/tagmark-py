@@ -135,7 +135,7 @@ dmypy.json
 .vscode
 
 # Tagmark
-data/
+/data/
 tagmark-ui/
 gpt_config.json
 changelog.txt
