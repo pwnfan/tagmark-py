@@ -18,10 +18,12 @@ build: ;@echo "Building ${PROJECT}.....\n"; \
 
 clean: ;@echo "Cleaning ${PROJECT}.....\n"; \
     rm -rf dist; \
-	rm -rf .coverage
+	rm -rf .coverage; \
+	rm -rf .pytest_cache; \
+	rm -rf html-cov
 
 changelog: ;@echo "Making ${PROJECT} Changelog......\n"; \
 	git log $(V_OLD)..$(V_NEW) --oneline --abbrev-commit --pretty="* %h %s" > $(OUT_FILE); \
 	echo "changelog between $(V_OLD) and $(V_NEW) has been written into file $(OUT_FILE)"
 
-.PHONY: install lint test build clean xxx
+.PHONY: install lint test build clean
