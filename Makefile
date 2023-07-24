@@ -11,7 +11,7 @@ lint: ;@echo "Linting ${PROJECT}.....\n"; \
 	flake8 --ignore=E501,W503 .
 
 test: ;@echo "Testing ${PROJECT}.....\n"; \
-    poetry run pytest -v --cov=tagmark tests/
+    poetry run pytest -v --cov=tagmark --cov-report=term-missing tests/
 
 build: ;@echo "Building ${PROJECT}.....\n"; \
     poetry build
