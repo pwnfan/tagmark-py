@@ -8,7 +8,7 @@ install: ;@echo "Installing ${PROJECT}.....\n"; \
 lint: ;@echo "Linting ${PROJECT}.....\n"; \
 	black .; \
 	isort --profile black .; \
-	flake8 --ignore=E501,W503 .
+	flake8 --ignore=E203,E501,W503 --exclude=.venv .
 
 test: ;@echo "Testing ${PROJECT}.....\n"; \
     poetry run pytest -v --cov=tagmark --cov-report=term-missing tests/
