@@ -17,10 +17,11 @@ build: ;@echo "Building ${PROJECT}.....\n"; \
     poetry build
 
 clean: ;@echo "Cleaning ${PROJECT}.....\n"; \
+	find . | grep -E "(__pycache__|\.pyc|\.pyo$\)" | xargs rm -rf; \
     rm -rf dist; \
 	rm -rf .coverage; \
 	rm -rf .pytest_cache; \
-	rm -rf html-cov
+	rm -rf htmlcov
 
 changelog: ;@echo "Making ${PROJECT} Changelog......\n"; \
 	git log $(V_OLD)..$(V_NEW) --oneline --abbrev-commit --pretty="* %h %s" > $(OUT_FILE); \
