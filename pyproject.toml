@@ -34,3 +34,11 @@ tagmark_cli = "tagmark.cli:cli"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.coverage.report]
+exclude_lines = [
+    "def __repr__",
+    "if __name__ == .__main__.:",
+    "pass",
+    "raise NotImplementedError",
+]
