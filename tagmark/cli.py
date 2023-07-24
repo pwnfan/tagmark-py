@@ -198,7 +198,9 @@ def checktag(
     no_def_tag_value_placeholder: str,
 ):
     # load tagmark data from file
-    _converter: tagmark_convert.JsonLinesConverter = tagmark_convert.JsonLinesConverter()
+    _converter: tagmark_convert.JsonLinesConverter = (
+        tagmark_convert.JsonLinesConverter()
+    )
     _items: list[dict] = _converter.load_original_items(
         data_source=Path(tagmark_data_file_path)
     )
