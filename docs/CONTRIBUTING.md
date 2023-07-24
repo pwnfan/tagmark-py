@@ -166,8 +166,10 @@ make test
 
 
 ```bash
-poetry run pytest -v --cov=tagmark tests/
+poetry run pytest -v --cov=tagmark --cov-report=term-missing tests/
 ```
+
+or if you want to generate a html report, just replace `--cov-report=term-missing` with `--cov-report=html`
 
 #### 6. Build
 
@@ -195,8 +197,11 @@ make clean
 
 
 ```bash
-rm -rf dist
-rm -rf .coverage
+	find . | grep -E "(__pycache__|\.pyc|\.pyo$\)" | xargs rm -rf
+  rm -rf dist
+	rm -rf .coverage
+	rm -rf .pytest_cache
+	rm -rf htmlcov
 ```
 
 #### 8. Generating Changelog
