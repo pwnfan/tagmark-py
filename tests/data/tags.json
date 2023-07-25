@@ -1,0 +1,58 @@
+{
+    "dev": {
+        "abbr": "dev",
+        "alias": null,
+        "definition": "Software/Application Development",
+        "full_name": "development",
+        "gpt_prompt_context": null,
+        "prefer_format": "{full_name}"
+    },
+    "frontend": {
+        "abbr": null,
+        "alias": null,
+        "definition": null,
+        "full_name": null,
+        "gpt_prompt_context": "software development",
+        "prefer_format": "{full_name}"
+    },
+    "javascript": {
+        "abbr": "JS",
+        "alias": null,
+        "definition": null,
+        "full_name": "JavaScript",
+        "gpt_prompt_context": null,
+        "prefer_format": "{full_name}"
+    },
+    "library": {
+        "abbr": "lib",
+        "alias": "moudle/package",
+        "definition": "a moudle/package/library (usually third party ones) of certain development language",
+        "full_name": null,
+        "gpt_prompt_context": null,
+        "prefer_format": "{tag}"
+    },
+    "module": {
+        "abbr": "mod",
+        "alias": "package/library",
+        "definition": "a moudle/package/library (usually third party ones) of certain development language",
+        "full_name": null,
+        "gpt_prompt_context": null,
+        "prefer_format": "{tag}"
+    },
+    "tag": {
+        "abbr": null,
+        "alias": null,
+        "definition": "Tag",
+        "full_name": null,
+        "gpt_prompt_context": null,
+        "prefer_format": "{full_name}"
+    },
+    "test": {
+        "abbr": null,
+        "alias": null,
+        "definition": "the Testing part in Software Development",
+        "full_name": null,
+        "gpt_prompt_context": null,
+        "prefer_format": "{full_name}"
+    }
+}
