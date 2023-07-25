@@ -447,5 +447,6 @@ We welcome you to join the development of tagmark. Please see [docs/CONTRIBUTING
   - [ ] not github repo url
 - [ ] automatically find a forked repo of invalid github repo, replace the old repo url with forked repo url, and add comment to explain why
 - [x]  update github info only when user specified number of hours has passed since the last update.
+- [ ]  add sub command `cheatsheet` to make a cheat sheet from a pre-defined template file
 
 [contributing-document-url]: CONTRIBUTING.md
