@@ -1,63 +1,119 @@
-from tagmark.tools.autotagdef import AutoTagDefinitonMarker
+from tagmark.tools.autotagdef import AutoTagDefinitionMarker
 
 
-class TestAutoTagDefinitonMarker:
-    auto_tag_def_maker: AutoTagDefinitonMarker = AutoTagDefinitonMarker(
+class TestAutoTagDefinitionMarker:
+    auto_tag_def_maker: AutoTagDefinitionMarker = AutoTagDefinitionMarker(
         gpt_config={"access_token": "fake_test_token"},
     )
+    dumpy_gpt_generated_definition = "dummy GPT generated definition"
 
     def test_auto_make_tag_definitions(self, mocker):
-        tag_definitions: dict[str:str] = {
-            # already has a definition
-            "active-directory": "Active Directory (AD) is a directory service developed by Microsoft that is used in Windows-based networks.",
-            # a prompt has been set for auto marking definition by GPT (the ending `?` is the flag)
-            "adfs": "what is ADFS?",
-            # a prompt has been set for auto marking definition by GPT
-            "adversary-emulation": "in cybersecurity, what is Adversary Emulation?",
-            # a prompt has been set for auto marking definition by GPT
-            "aggregator-site": "what is a aggregator site?",
-            # no definition, and no prompt has been set
-            "ai": "!!!NO DEFINITION FOR THIS TAG, PLEASE ADD HERE!!!",
-            # no definition, and no prompt has been set
-            "alibaba-cloud": "!!!NO DEFINITION FOR THIS TAG, PLEASE ADD HERE!!!",
+        tag_infos: dict[str:dict] = {
+            "active-directory": {
+                "abbr": "AD",
+                "full_name": "Active Directory",
+                "definition": "Active Directory (AD) is a directory service developed by Microsoft that is used in Windows-based networks.",
+            },
+            "adfs": {
+                "abbr": "ADFS",
+            },
+            "adversary-emulation": {
+                "full_name": "Adversary Emulation",
+                "gpt_prompt_context": "cybersecurity",
+            },
+            "aggregator-site": {"full_name": "aggregator site"},
+            "ai": {},
+            "alibaba-cloud": {},
         }
+
+        # test `little_info_tag_is_ok` == False
         mocker.patch.object(
             self.auto_tag_def_maker,
             "_get_definition_by_chatgpt",
             side_effect=[
-                "dummy GPT generated definiton",
+                self.dumpy_gpt_generated_definition,
                 "",
                 Exception("Something went wrong"),
             ],
         )
-
         (
             new_tag_definitions,
             auto_tag_make_stats,
-        ) = self.auto_tag_def_maker.auto_make_tag_definitions(
-            tag_definitions=tag_definitions,
+        ) = self.auto_tag_def_maker.auto_define_tags(
+            tag_infos=tag_infos,
+            little_info_tag_is_ok=False,
         )
-        assert auto_tag_make_stats.count_total_tags == len(tag_definitions)
+        assert auto_tag_make_stats.count_total_tags == len(tag_infos)
         assert auto_tag_make_stats.count_auto_made_success == 1
         assert auto_tag_make_stats.count_auto_made_fail == 2
+        assert auto_tag_make_stats.count_no_gpt_prompt == 2
         assert auto_tag_make_stats.count_already_defined == 1
-        assert auto_tag_make_stats.count_no_prompt == 2
-        _gpt_results: list[str] = [
-            new_tag_definitions.get("adfs"),
-            new_tag_definitions.get("adversary-emulation"),
-            new_tag_definitions.get("aggregator-site"),
-        ]
+
         assert any(
             [
-                tag_definitions.get("adfs") in _gpt_results,
-                tag_definitions.get("adversary-emulation") in _gpt_results,
-                tag_definitions.get("aggregator-site") in _gpt_results,
+                new_tag_definitions.get("adfs") == self.dumpy_gpt_generated_definition,
+                new_tag_definitions.get("adversary-emulation")
+                == self.dumpy_gpt_generated_definition,
+                new_tag_definitions.get("aggregator-site")
+                == self.dumpy_gpt_generated_definition,
             ]
         )
         assert not all(
             [
-                tag_definitions.get("adfs") in _gpt_results,
-                tag_definitions.get("adversary-emulation") in _gpt_results,
-                tag_definitions.get("aggregator-site") in _gpt_results,
+                new_tag_definitions.get("adfs") == self.dumpy_gpt_generated_definition,
+                new_tag_definitions.get("adversary-emulation")
+                == self.dumpy_gpt_generated_definition,
+                new_tag_definitions.get("aggregator-site")
+                == self.dumpy_gpt_generated_definition,
+            ]
+        )
+
+        # test `little_info_tag_is_ok` == True
+        mocker.patch.object(
+            self.auto_tag_def_maker,
+            "_get_definition_by_chatgpt",
+            side_effect=[
+                self.dumpy_gpt_generated_definition,
+                "",
+                Exception("Something went wrong"),
+                self.dumpy_gpt_generated_definition,
+                self.dumpy_gpt_generated_definition,
+            ],
+        )
+        (
+            new_tag_definitions,
+            auto_tag_make_stats,
+        ) = self.auto_tag_def_maker.auto_define_tags(
+            tag_infos=tag_infos,
+            little_info_tag_is_ok=True,
+        )
+        assert auto_tag_make_stats.count_total_tags == len(tag_infos)
+        assert auto_tag_make_stats.count_auto_made_success == 3
+        assert auto_tag_make_stats.count_auto_made_fail == 2
+        assert auto_tag_make_stats.count_no_gpt_prompt == 0
+        assert auto_tag_make_stats.count_already_defined == 1
+
+        assert any(
+            [
+                new_tag_definitions.get("adfs") == self.dumpy_gpt_generated_definition,
+                new_tag_definitions.get("adversary-emulation")
+                == self.dumpy_gpt_generated_definition,
+                new_tag_definitions.get("aggregator-site")
+                == self.dumpy_gpt_generated_definition,
+                new_tag_definitions.get("ai") == self.dumpy_gpt_generated_definition,
+                new_tag_definitions.get("alibaba-cloud")
+                == self.dumpy_gpt_generated_definition,
+            ]
+        )
+        assert not all(
+            [
+                new_tag_definitions.get("adfs") == self.dumpy_gpt_generated_definition,
+                new_tag_definitions.get("adversary-emulation")
+                == self.dumpy_gpt_generated_definition,
+                new_tag_definitions.get("aggregator-site")
+                == self.dumpy_gpt_generated_definition,
+                new_tag_definitions.get("ai") == self.dumpy_gpt_generated_definition,
+                new_tag_definitions.get("alibaba-cloud")
+                == self.dumpy_gpt_generated_definition,
             ]
         )
