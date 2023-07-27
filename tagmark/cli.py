@@ -200,7 +200,7 @@ def checktag(
     if tags_checker.check_result.tags_only_in_tags_json:
         __logger.warn(
             msg="tags only in tags.json(unused tags) found",
-            tags_definition_unused=tags_checker.check_result.tags_only_in_tags_json,
+            tags_unused=tags_checker.check_result.tags_only_in_tags_json,
         )
         warnings.warn(
             message=f"tags only in tags.json(unused tags) found: {sorted(tags_checker.check_result.tags_only_in_tags_json)}",
@@ -220,7 +220,8 @@ def checktag(
                 f"tags only in data source(undefined tags) found: {sorted(tags_checker.check_result.tags_only_in_data_source)}"
             )
         else:
-            new_tags_json_file: Path = Path(tags_json_path).parent.joinpath(
+            tags_json_path: Path = Path(tags_json_path)
+            new_tags_json_file: Path = tags_json_path.parent.joinpath(
                 f"new-{datetime.now().strftime('%Y%m%d%H%M%S')}-{tags_json_path.name}"
             )
             tags_checker.generate_new_tag_infos()
