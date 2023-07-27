@@ -35,7 +35,7 @@ __logger = get_level_logger(
 __logger.bind(scope="cli")
 
 
-@click.group()
+@click.group(context_settings=dict(help_option_names=["-h", "--help"]))
 def cli():
     pass
 
