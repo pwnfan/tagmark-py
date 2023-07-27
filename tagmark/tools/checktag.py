@@ -35,9 +35,9 @@ class TagsChecker:
         tags_json_path: Path,
         condition_json_path: Path | None = None,
     ):
-        self._tagmark_data_json_path = tagmark_data_json_path
-        self._tags_json_path = tags_json_path
-        self._condition_json_path = condition_json_path
+        self._tagmark_data_json_path: Path = tagmark_data_json_path
+        self._tags_json_path: Path = tags_json_path
+        self._condition_json_path: Path = condition_json_path
 
         self.__load_tagmark_data()
         self.__load_tag_infos()
