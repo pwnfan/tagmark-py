@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pytest
 
-from tagmark.core.data import Tagmark, TagmarkItem
+from tagmark.core.data import Tagmark, TagmarkFilter, TagmarkItem
 from tagmark.core.github import GithubRepoInfo
 
 
@@ -200,3 +200,80 @@ class TestTagmark:
         assert len(dict_items) == 2
         for _dict_item in dict_items:
             assert _dict_item["url"] != self.tagmark_obj.tagmark_items[-1].url
+
+
+class TestTagmarkFilter:
+    tagmark_obj: Tagmark = Tagmark()
+
+    @classmethod
+    def setup_class(cls):
+        cls.tagmark_obj.add(
+            [
+                TagmarkItem(
+                    url="https://github.com/CERT-Polska/Artemis",
+                    tags=["sec", "misc-tool", "recon", "scan-vul", "oss", "python"],
+                ),
+                TagmarkItem(
+                    url="https://github.com/moonD4rk/HackBrowserData",
+                    tags=[
+                        "sec",
+                        "tool",
+                        "sensitive-info",
+                        "recon",
+                        "browser",
+                        "oss",
+                        "golang",
+                        "post-exploitation",
+                    ],
+                ),
+                TagmarkItem(
+                    url="https://www.runoob.com/w3cnote/open-source-license.html",
+                    tags=[
+                        "dev",
+                        "oss",
+                        "license",
+                    ],
+                ),
+                TagmarkItem(
+                    url="https://www.lifars.com/knowledge-center/python-penetration-testing-cheat-sheet",
+                    tags=["sec", "dev", "python", "code-example", "penetration"],
+                ),
+            ]
+        )
+
+    def test_filter(self):
+        filter_value1: str = "sec AND ((python OR golang))"
+        condition: dict = {
+            "tags": [
+                "golang",
+            ],
+        }
+
+        tagmark_filter1: TagmarkFilter = TagmarkFilter(filter_value=filter_value1)
+        tagmark_filter1.filter(
+            tagmark=self.tagmark_obj,
+            condition=condition,
+            is_ban_condition=True,
+        )
+        assert tagmark_filter1.count_total == 2
+        assert tagmark_filter1.count_github == 1
+
+        tagmark_filter2: TagmarkFilter = TagmarkFilter(filter_value=filter_value1)
+        tagmark_filter2.filter(
+            tagmark=self.tagmark_obj,
+            condition=condition,
+            is_ban_condition=False,
+        )
+        assert tagmark_filter2.count_total == 1
+        assert tagmark_filter2.count_github == 1
+
+        filter_value2: str = "sec AND ( NOT  golang)"
+        tagmark_filter3: TagmarkFilter = TagmarkFilter(filter_value=filter_value2)
+        tagmark_filter3.filter(tagmark=self.tagmark_obj)
+        assert tagmark_filter3.count_total == 2
+        assert tagmark_filter3.count_github == 1
+
+        tagmark_filter4: TagmarkFilter = TagmarkFilter(filter_value="")
+        tagmark_filter4.filter(tagmark=self.tagmark_obj)
+        assert tagmark_filter4.count_total == 4
+        assert tagmark_filter4.count_github == 2

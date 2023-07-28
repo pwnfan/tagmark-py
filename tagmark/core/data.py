@@ -1,4 +1,5 @@
 import json
+import re
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Iterable
@@ -241,3 +242,79 @@ class Tagmark:
                         )
                     )
                 )
+
+
+class TagmarkFilter:
+    def __init__(self, filter_value: str):
+        self.filter_value: str = filter_value
+        self.filtered_tagmark: Tagmark = Tagmark()
+
+    @property
+    def count_total(self):
+        return len(self.filtered_tagmark.tagmark_items)
+
+    @property
+    def count_github(self):
+        return self.filtered_tagmark.count_github_url
+
+    def filter(
+        self,
+        tagmark: Tagmark,
+        condition: dict = {},
+        is_ban_condition=True,
+    ):
+        _tagmark_item: Tagmark
+        _filtered_items: list[Tagmark] = []
+        for _tagmark_item in tagmark.tagmark_items:
+            if self._hits_tagmark_item(
+                tagmark_item=_tagmark_item,
+                condition=condition,
+                is_ban_condition=is_ban_condition,
+            ):
+                _filtered_items.append(_tagmark_item)
+        self.filtered_tagmark.add(_filtered_items)
+
+    def _hits_tagmark_item(
+        self, tagmark_item: TagmarkItem, condition: dict = {}, is_ban_condition=True
+    ) -> bool:
+        if (is_ban_condition and tagmark_item.hits_condition(condition)) or (
+            not is_ban_condition and not tagmark_item.hits_condition(condition)
+        ):
+            return False
+
+        self.filter_value = self.filter_value.strip()
+
+        if not self.filter_value:
+            return True
+
+        _filter_value_parts: list[str] = []
+        for _filter_value_part in re.split(r"\b(OR|AND|NOT)\b", self.filter_value):
+            _filter_value_part = _filter_value_part.strip()
+            if _filter_value_part in ("AND", "OR", "NOT"):
+                _filter_value_parts.append(_filter_value_part.lower())
+            elif set(_filter_value_part) == set("("):
+                _filter_value_parts.append(_filter_value_part)
+            else:
+                _tag_keyword: str = self.__extract_tag_keyword(_filter_value_part)
+                if not _tag_keyword.strip():
+                    return False
+                _filter_value_parts.append(
+                    _filter_value_part.replace(
+                        _tag_keyword, str(_tag_keyword.lower() in tagmark_item.tags)
+                    )
+                )
+
+        return eval(" ".join(_filter_value_parts))
+
+    def __extract_tag_keyword(self, _filter_value_part: str) -> str:
+        _start_index: int = (
+            0
+            if _filter_value_part.rfind("(") == -1
+            else _filter_value_part.rfind("(") + 1
+        )
+        _end_index: int = (
+            len(_filter_value_part)
+            if _filter_value_part.find(")") == -1
+            else _filter_value_part.find(")")
+        )
+        return _filter_value_part[_start_index:_end_index]
