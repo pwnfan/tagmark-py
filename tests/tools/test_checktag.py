@@ -7,11 +7,11 @@ from tagmark.tools.checktag import TagsChecker
 class TestTagsChecker:
     @classmethod
     @pytest.fixture(autouse=True)
-    def setup(cls, test_file_paths):
+    def setup(cls, test_input_file_paths):
         cls.tags_checker: TagsChecker = TagsChecker(
-            tagmark_data_json_path=test_file_paths["tagmark_data_json"],
-            tags_json_path=test_file_paths["tags_json"],
-            condition_json_path=test_file_paths["condition_json"],
+            tagmark_data_json_path=test_input_file_paths["tagmark_data_json"],
+            tags_json_path=test_input_file_paths["tags_json"],
+            condition_json_path=test_input_file_paths["condition_json"],
         )
 
     def test_check_tags(

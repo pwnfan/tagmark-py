@@ -7,7 +7,7 @@ load_dotenv()
 
 
 @pytest.fixture(scope="session")
-def test_file_paths() -> dict[str:Path]:
+def test_input_file_paths() -> dict[str:Path]:
     return {
         "tagmark_data_json": Path(
             "tests/data/tagmark_ui_data_1682298863.158216.jsonl"
