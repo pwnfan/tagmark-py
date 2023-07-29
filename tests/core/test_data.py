@@ -249,7 +249,7 @@ class TestTagmarkFilter:
             ],
         }
 
-        tagmark_filter1: TagmarkFilter = TagmarkFilter(filter_value=filter_value1)
+        tagmark_filter1: TagmarkFilter = TagmarkFilter(value=filter_value1)
         tagmark_filter1.filter(
             tagmark=self.tagmark_obj,
             condition=condition,
@@ -258,7 +258,7 @@ class TestTagmarkFilter:
         assert tagmark_filter1.count_total == 2
         assert tagmark_filter1.count_github == 1
 
-        tagmark_filter2: TagmarkFilter = TagmarkFilter(filter_value=filter_value1)
+        tagmark_filter2: TagmarkFilter = TagmarkFilter(value=filter_value1)
         tagmark_filter2.filter(
             tagmark=self.tagmark_obj,
             condition=condition,
@@ -268,12 +268,12 @@ class TestTagmarkFilter:
         assert tagmark_filter2.count_github == 1
 
         filter_value2: str = "sec AND ( NOT  golang)"
-        tagmark_filter3: TagmarkFilter = TagmarkFilter(filter_value=filter_value2)
+        tagmark_filter3: TagmarkFilter = TagmarkFilter(value=filter_value2)
         tagmark_filter3.filter(tagmark=self.tagmark_obj)
         assert tagmark_filter3.count_total == 2
         assert tagmark_filter3.count_github == 1
 
-        tagmark_filter4: TagmarkFilter = TagmarkFilter(filter_value="")
+        tagmark_filter4: TagmarkFilter = TagmarkFilter(value="")
         tagmark_filter4.filter(tagmark=self.tagmark_obj)
         assert tagmark_filter4.count_total == 4
         assert tagmark_filter4.count_github == 2

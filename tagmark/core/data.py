@@ -245,8 +245,8 @@ class Tagmark:
 
 
 class TagmarkFilter:
-    def __init__(self, filter_value: str):
-        self.filter_value: str = filter_value
+    def __init__(self, value: str):
+        self.value: str = value
         self.filtered_tagmark: Tagmark = Tagmark()
 
     @property
@@ -282,13 +282,13 @@ class TagmarkFilter:
         ):
             return False
 
-        self.filter_value = self.filter_value.strip()
+        self.value = self.value.strip()
 
-        if not self.filter_value:
+        if not self.value:
             return True
 
         _filter_value_parts: list[str] = []
-        for _filter_value_part in re.split(r"\b(OR|AND|NOT)\b", self.filter_value):
+        for _filter_value_part in re.split(r"\b(OR|AND|NOT)\b", self.value):
             _filter_value_part = _filter_value_part.strip()
             if _filter_value_part in ("AND", "OR", "NOT"):
                 _filter_value_parts.append(_filter_value_part.lower())
