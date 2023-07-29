@@ -42,6 +42,7 @@ def cli():
 
 
 @cli.command(
+    name="convert",
     context_settings=dict(help_option_names=["-h", "--help"]),
     no_args_is_help=True,
     help="convert other bookmark formats into Tagmark format(json-lines)",
@@ -152,6 +153,7 @@ def convert(
 
 
 @cli.command(
+    name="checktag",
     context_settings=dict(help_option_names=["-h", "--help"]),
     no_args_is_help=True,
     help="check every tag has a been defined",
@@ -184,7 +186,7 @@ def convert(
     show_default=True,
     help="if set to `True`, a new tags.json file will be generated, which includes old tags in tag.json file, and new tags in the tagmark data file(specified by -t).",
 )
-def checktag(
+def check_tag(
     tagmark_data_json_path: str,
     tags_json_path: str,
     condition_json_path: str,
@@ -241,6 +243,7 @@ def checktag(
 
 
 @cli.command(
+    name="autotagdef",
     context_settings=dict(help_option_names=["-h", "--help"]),
     no_args_is_help=True,
     help="get tag definition automatically by ChatGPT",
@@ -282,7 +285,7 @@ def checktag(
     show_default=True,
     help="",
 )
-def autotagdef(
+def auto_tag_def(
     tags_info_json_path,
     gpt_config_file_path,
     gpt_conversation_id,
@@ -342,6 +345,7 @@ def autotagdef(
 
 
 @cli.command(
+    name="maketagdoc",
     context_settings=dict(help_option_names=["-h", "--help"]),
     no_args_is_help=True,
     help="make document from a template containing tag related syntaxes",
@@ -404,7 +408,7 @@ def autotagdef(
     show_default=True,
     help="the output file (formatted according to the template file) path",
 )
-def maketagdoc(
+def make_tag_doc(
     tagmark_data_json_path,
     tags_json_path,
     config_path,
