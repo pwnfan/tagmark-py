@@ -2,7 +2,7 @@
     "dev": {
         "abbr": "dev",
         "alias": null,
-        "definition": "Software/Application Development",
+        "definition": "Software / Application Development",
         "full_name": "development",
         "gpt_prompt_context": null,
         "prefer_format": "{full_name}"
@@ -10,34 +10,34 @@
     "frontend": {
         "abbr": null,
         "alias": null,
-        "definition": null,
+        "definition": "In software development, the frontend refers to the client-side of an application or website. It encompasses the user interface (UI) and user experience (UX) components that users interact with directly. The frontend is responsible for presenting data and content to the user in an interactive and visually appealing manner.\n\nHere are some key aspects and technologies associated with frontend development:\n\n1. User Interface (UI): The UI refers to the visual elements and components that users interact with on a website or application. This includes the layout, buttons, forms, menus, and other graphical elements that enable user interaction.\n\n2. User Experience (UX): UX focuses on enhancing the overall experience of users when using an application or website. It involves designing intuitive and user-friendly interfaces, optimizing performance, and ensuring smooth navigation and interactions.\n\n3. HTML: HTML (Hypertext Markup Language) is the standard markup language used to structure and present content on the web. It defines the elements and structure of a webpage, such as headings, paragraphs, lists, images, and links.\n\n4. CSS: CSS (Cascading Style Sheets) is used to style the appearance and layout of HTML elements. It defines properties like colors, fonts, spacing, borders, and animations to enhance the visual presentation of the webpage.\n\n5. JavaScript: JavaScript is a programming language that enables interactivity and dynamic behavior on the frontend. It allows developers to manipulate HTML elements, handle user events, perform calculations, make API calls, and create interactive features like animations and forms validation.\n\n6. Frontend Frameworks: Frontend frameworks like React, Angular, and Vue.js provide a structured and efficient way to build complex frontend applications. They offer reusable components, state management, routing, and other tools to simplify the development process.\n\n7. Responsive Design: With the prevalence of various devices and screen sizes, responsive design is crucial in frontend development. It ensures that websites and applications adapt and display appropriately across different devices, such as desktops, tablets, and mobile phones.\n\nFrontend development is focused on creating an engaging and user-friendly interface that communicates effectively with the backend of an application or website. It involves designing and implementing the visual and interactive components to provide a seamless user experience.",
         "full_name": null,
         "gpt_prompt_context": "software development",
-        "prefer_format": "{full_name}"
+        "prefer_format": "{tag}"
     },
     "javascript": {
         "abbr": "JS",
         "alias": null,
-        "definition": null,
+        "definition": "JavaScript is a high-level, interpreted programming language primarily used for front-end web development. It was originally created by Brendan Eich at Netscape Communications in 1995 and has since become one of the most popular programming languages for web development.\n\nJavaScript allows developers to add interactive and dynamic elements to websites, making it possible to create engaging user experiences. It is supported by all modern web browsers and is considered an essential component of web development alongside HTML and CSS.\n\nKey features of JavaScript include:\n\n1. Client-side scripting: JavaScript is primarily used on the client side, meaning it runs in the user's web browser. It can manipulate the HTML content, handle user interactions, and dynamically update the web page without requiring a server round-trip.\n\n2. Event-driven programming: JavaScript utilizes event-driven programming, where actions or events on a web page (e.g., button clicks, mouse movements) trigger specific code execution.\n\n3. Object-oriented programming: JavaScript supports object-oriented programming principles, allowing developers to create and use objects, classes, and inheritance to structure their code.\n\n4. Versatility: JavaScript is not limited to web development. It is also used for server-side development (Node.js), desktop application development (Electron framework), and even mobile app development (React Native framework).\n\n5. Rich ecosystem: JavaScript has a vast and active ecosystem of libraries, frameworks, and tools that make development more efficient. Popular libraries and frameworks include React, Angular, Vue.js, and Express.js.\n\n6. Asynchronous programming: JavaScript supports asynchronous programming through features like callbacks, promises, and async/await, which enable handling asynchronous operations without blocking the execution of other code.\n\nJavaScript is used for a wide range of applications, from simple form validation and DOM manipulation to complex web applications, real-time communication, and interactive games. It continues to evolve with new language features and standards, making it a powerful tool for modern web development.",
         "full_name": "JavaScript",
         "gpt_prompt_context": null,
         "prefer_format": "{full_name}"
     },
     "library": {
         "abbr": "lib",
-        "alias": "moudle/package",
-        "definition": "a moudle/package/library (usually third party ones) of certain development language",
+        "alias": "moudle / package",
+        "definition": "a moudle / package / library (usually third party ones) of certain development language",
         "full_name": null,
         "gpt_prompt_context": null,
-        "prefer_format": "{tag}"
+        "prefer_format": "{tag} / {alias}"
     },
     "module": {
         "abbr": "mod",
-        "alias": "package/library",
-        "definition": "a moudle/package/library (usually third party ones) of certain development language",
+        "alias": "package / library",
+        "definition": "a moudle / package / library (usually third party ones) of certain development language",
         "full_name": null,
         "gpt_prompt_context": null,
-        "prefer_format": "{tag}"
+        "prefer_format": "{full_name} / {alias}"
     },
     "tag": {
         "abbr": null,
@@ -45,7 +45,7 @@
         "definition": "Tag",
         "full_name": null,
         "gpt_prompt_context": null,
-        "prefer_format": "{full_name}"
+        "prefer_format": "{tag}"
     },
     "test": {
         "abbr": null,

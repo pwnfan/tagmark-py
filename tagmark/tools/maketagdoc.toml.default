@@ -1,0 +1,20 @@
+# `maketagdoc` subcommand default configuration file
+
+[formatter.type_name_abbr]  # abbreviation name of formatter type
+total = "T"
+tag = "t"   # the related value should be a tag
+filter = "f"    # the realted value should be a filter value (the same as the user-input value in tagmark-ui HeaderFilter input box)
+tag_filter_counts = "t+f+c" # the related value should be a tag
+tag_filter = "t+f"  # the related value should be a tag
+filter_counts = "f+c"   # the related value should be a filter value
+
+[formatter.value]
+regex = "{{((.*?):(.*?))}}"
+
+[formatter.value.format_expression]
+total = "[All TagMarks]({url_base}) `Total {filter.count_total} (Github {filter.count_github})`"
+tag = "{tag_item.formatted_name}"   # `tag_item` is the instance on tagmark.core.tag.TagItem
+filter = "{url_base}/?tags={filter.value}" # `filter` is the instance of tagmark.core.data.TagmarkFilter
+tag_filter_counts = "[{tag_item.formatted_name}]({url_base}/?tags={filter.value}) `Total {filter.count_total} (Github {filter.count_github})`"
+tag_filter = "[{tag_item.formatted_name}]({url_base}/?tags={filter.value})"
+filter_counts = "({url_base}/?tags={filter.value}) `Total {filter.count_total} (Github {filter.count_github})`"
