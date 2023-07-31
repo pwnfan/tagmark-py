@@ -197,6 +197,7 @@ def check_tag(
         tags_json_path=tags_json_path,
         condition_json_path=condition_json_path,
     )
+    tags_checker.check_tag_duplicated_formatted_names()
     tags_checker.check_tags()
     __logger.info(tags_count=tags_checker.check_result.count)
 

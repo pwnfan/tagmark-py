@@ -1,7 +1,7 @@
 import pytest
 
 from tagmark.core.tag import TagItem
-from tagmark.tools.checktag import TagsChecker
+from tagmark.tools.checktag import DuplicatedTagFormattedNameError, TagsChecker
 
 
 class TestTagsChecker:
@@ -39,3 +39,9 @@ class TestTagsChecker:
             new_tags_infos_expected[_tag] = TagItem(tag=_tag).as_tags_json_data_value()
 
         assert self.tags_checker.new_tag_infos == new_tags_infos_expected
+
+    def test_check_tag_duplicated_formatted_names(
+        self,
+    ):
+        with pytest.raises(DuplicatedTagFormattedNameError):
+            self.tags_checker.check_tag_duplicated_formatted_names()

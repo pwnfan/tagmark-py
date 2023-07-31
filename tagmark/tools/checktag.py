@@ -6,6 +6,10 @@ from tagmark.core.tag import TagItem
 from tagmark.tools.convert import tagmark as tagmark_convert
 
 
+class DuplicatedTagFormattedNameError(Exception):
+    pass
+
+
 @dataclass
 class TagsCheckResult:
     tags_in_data_source: set[str] = field(default_factory=set[str])
@@ -81,6 +85,25 @@ class TagsChecker:
             tags_in_tags_json=self.tags_in_json_file - self.tags_in_ban_condition,
         )
         return self.check_result
+
+    def check_tag_duplicated_formatted_names(
+        self,
+    ):
+        _tag_items: list[TagItem] = [
+            TagItem(tag=_tag, **_tag_info) for _tag, _tag_info in self.tag_infos.items()
+        ]
+        _stat: dict[str:dict] = {}
+        _tag_item: TagItem
+        for _tag_item in _tag_items:
+            _: dict = _stat.setdefault(_tag_item.formatted_name, {})
+            _stat[_tag_item.formatted_name]["tag"]: list = _.get("tag", [])
+            _stat[_tag_item.formatted_name]["tag"].append(_tag_item.tag)
+            _stat[_tag_item.formatted_name]["count"] = _.get("count", 0) + 1
+        duplicated: dict[str:dict] = {
+            _formatted_name: _ for _formatted_name, _ in _stat.items() if _["count"] > 1
+        }
+        if duplicated:
+            raise DuplicatedTagFormattedNameError(duplicated)
 
     def generate_new_tag_infos(self) -> dict[str:dict]:
         self.new_tag_infos: dict[str:dict] = self.tag_infos.copy()
