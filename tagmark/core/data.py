@@ -1,9 +1,9 @@
 import json
 import re
 from dataclasses import dataclass, field
-from urllib.parse import quote_plus
 from pathlib import Path
 from typing import Iterable
+from urllib.parse import quote_plus
 
 from tqdm import tqdm
 
