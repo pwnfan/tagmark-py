@@ -7,6 +7,7 @@ from pathlib import Path
 from tqdm import tqdm
 
 from tagmark.core.data import TagmarkFilter
+from tagmark.core.log import LogHandler, LogLevel, get_level_logger
 from tagmark.core.tag import TagItem
 from tagmark.tools.convert import tagmark as tagmark_convert
 
@@ -33,6 +34,15 @@ class TagDocMaker:
         condition_json_path: Path | None = None,
         is_ban_condition: bool = True,
     ):
+        self._logger = get_level_logger(
+            name="tagmark",
+            level=LogLevel.INFO,
+            handlers=[
+                LogHandler.CONSOLE,
+            ],
+        )
+        self._logger.bind(scope="TagDocMaker")
+
         self._tagmark_data_json_path: Path = tagmark_data_json_path
         self._tags_json_path: Path = tags_json_path
         self._config_path: Path = config_path
@@ -112,7 +122,15 @@ class TagDocMaker:
             iterable=cheat_sheet_template.splitlines(keepends=True),
             desc="processing by lines...",
         ):
-            new_lines.append(self._format_line(line=_line))
+            try:
+                new_lines.append(self._format_line(line=_line))
+            except Exception as err:
+                self._logger.error(
+                    line=_line,
+                    msg=err,
+                    exc_info=True,
+                )
+                raise err
         return "".join(new_lines)
 
     def _format_line(self, line: str) -> str:
