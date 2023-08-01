@@ -1,6 +1,7 @@
 import json
 import re
 from dataclasses import dataclass, field
+from urllib.parse import quote_plus
 from pathlib import Path
 from typing import Iterable
 
@@ -256,6 +257,10 @@ class TagmarkFilter:
     @property
     def count_github(self):
         return self.filtered_tagmark.count_github_url
+
+    @property
+    def as_url_param(self):
+        return quote_plus(self.value)
 
     def filter(
         self,
