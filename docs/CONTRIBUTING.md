@@ -209,22 +209,22 @@ make clean
 ##### Option 1: Using make command
 
 ```bash
-make changelog V_OLD=v0.1.0 V_NEW=v0.2.0 OUT_FILE=changelog.txt
+make changelog o=v0.1.0 n=v0.2.0 f=changelog.txt
 ```
 
-* `V_OLD`: an older(starting) Git commit version number, its optional values are:
+* `o`: an older(starting) Git commit version number, its optional values are:
   * Git commit hash
   * Git tag
-* `V_NEW`: a newer(ending) Git commit version number, its optional values are:
+* `n`: a newer(ending) Git commit version number, its optional values are:
   * Git commit hash
   * Git tag
   * HEAD, HEAD^, HEAD~3, etc.
-* `OUT_FILE`: the path of the output file
+* `f`: the path of the output file
 
 ##### Option 2: Run Original Command(s)
 
 ```bash
-git log V_OLD..V_NEW --oneline --abbrev-commit --pretty="* %h %s" > OUT_FILE;
+git log {o}..{n} --oneline --abbrev-commit --pretty="* %h %s" > {f};
 ```
 
 the meaning of the arguments are the same as those in [Option 1: Using make command](#option-1-using-make-command-5).
