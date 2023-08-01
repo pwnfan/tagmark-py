@@ -14,7 +14,7 @@ regex = "{{((.*?):(.*?))}}"
 [formatter.value.format_expression]
 total = "[All TagMarks]({url_base}) `Total {filter.count_total} (Github {filter.count_github})`"
 tag = "{tag_item.formatted_name}"   # `tag_item` is the instance on tagmark.core.tag.TagItem
-filter = "{url_base}/?tags={filter.as_url_param}" # `filter` is the instance of tagmark.core.data.TagmarkFilter
+filter = "({url_base}/?tags={filter.as_url_param})" # `filter` is the instance of tagmark.core.data.TagmarkFilter
 tag_filter_counts = "[{tag_item.formatted_name}]({url_base}/?tags={filter.as_url_param}) `Total {filter.count_total} (Github {filter.count_github})`"
 tag_filter = "[{tag_item.formatted_name}]({url_base}/?tags={filter.as_url_param})"
 filter_counts = "({url_base}/?tags={filter.as_url_param}) `Total {filter.count_total} (Github {filter.count_github})`"
