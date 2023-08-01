@@ -295,6 +295,8 @@ class TagmarkFilter:
         _filter_value_parts: list[str] = []
         for _filter_value_part in re.split(r"\b(OR|AND|NOT)\b", self.value):
             _filter_value_part = _filter_value_part.strip()
+            if not _filter_value_part.strip():
+                continue
             if _filter_value_part in ("AND", "OR", "NOT"):
                 _filter_value_parts.append(_filter_value_part.lower())
             elif set(_filter_value_part) == set("("):
@@ -302,14 +304,17 @@ class TagmarkFilter:
             else:
                 _tag_keyword: str = self.__extract_tag_keyword(_filter_value_part)
                 if not _tag_keyword.strip():
-                    return False
+                    continue
                 _filter_value_parts.append(
                     _filter_value_part.replace(
                         _tag_keyword, str(_tag_keyword.lower() in tagmark_item.tags)
                     )
                 )
 
-        return eval(" ".join(_filter_value_parts))
+        if not _filter_value_parts:
+            return False
+        else:
+            return eval(" ".join(_filter_value_parts))
 
     def __extract_tag_keyword(self, _filter_value_part: str) -> str:
         _start_index: int = (
