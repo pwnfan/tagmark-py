@@ -318,6 +318,11 @@ def auto_tag_def(
         tag_definitions=_tags_info,
         little_info_tag_is_ok=little_info_tag_is_ok,
     )
+    if _new_tag_definitions:
+        __logger.info(
+            msg="no definition tags found!",
+            no_definition_tags=_new_tag_definitions.keys(),
+        )
 
     new_tags_info: dict[str:dict] = _tags_info.copy()
     for _tag, _definition in _new_tag_definitions.items():

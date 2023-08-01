@@ -64,7 +64,7 @@ class AutoTagDefinitionMarker:
         for _tag, _tag_value in tqdm(tag_infos.items()):
             _tag_item: TagItem = TagItem(tag=_tag, **_tag_value)
 
-            if _tag_item.definition:
+            if _tag_item.definition and _tag_item.definition.strip():
                 auto_tag_make_stats.count_already_defined += 1
                 continue
             else:
@@ -94,6 +94,7 @@ class AutoTagDefinitionMarker:
                         msg=f"Error occurs when getting the definition tag {_tag} from gpt",
                         exc_info=True,
                     )
+                    new_tag_definitions[_tag] = None
                     auto_tag_make_stats.count_auto_made_fail += 1
 
         return new_tag_definitions, auto_tag_make_stats
