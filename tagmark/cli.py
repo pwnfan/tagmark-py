@@ -18,11 +18,11 @@ from tagmark.tools.maketagdoc import TagDocMaker
 load_dotenv(dotenv_path=find_dotenv(usecwd=True))
 
 
-class TagDefinitionUnusedWarning(Warning):
+class TagInfoUnusedWarning(Warning):
     pass
 
 
-class TagDefinitionMissingError(Exception):
+class TagInfoMissingError(Exception):
     pass
 
 
@@ -208,7 +208,7 @@ def check_tag(
         )
         warnings.warn(
             message=f"tags only in tags.json(unused tags) found: {sorted(tags_checker.check_result.tags_only_in_tags_json)}",
-            category=TagDefinitionUnusedWarning,
+            category=TagInfoUnusedWarning,
         )
 
     if tags_checker.check_result.tags_only_in_data_source:
@@ -220,7 +220,7 @@ def check_tag(
         )
 
         if not add_new_tags:
-            raise TagDefinitionMissingError(
+            raise TagInfoMissingError(
                 f"tags only in data source(undefined tags) found: {sorted(tags_checker.check_result.tags_only_in_data_source)}"
             )
         else:
