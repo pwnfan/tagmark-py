@@ -25,19 +25,19 @@
     },
     "library": {
         "abbr": "lib",
-        "alias": "moudle / package",
-        "definition": "a moudle / package / library (usually third party ones) of certain development language",
+        "alias": "package / module",
+        "definition": "a module / package / library (usually third party ones) of certain development language",
         "full_name": null,
         "gpt_prompt_context": null,
         "prefer_format": "{tag} / {alias}"
     },
     "module": {
         "abbr": "mod",
-        "alias": "package / library",
-        "definition": "a moudle / package / library (usually third party ones) of certain development language",
+        "alias": "library / package",
+        "definition": "a module / package / library (usually third party ones) of certain development language",
         "full_name": null,
         "gpt_prompt_context": null,
-        "prefer_format": "{full_name} / {alias}"
+        "prefer_format": "{alias} / {tag}"
     },
     "tag": {
         "abbr": null,
@@ -53,6 +53,6 @@
         "definition": "the Testing part in Software Development",
         "full_name": null,
         "gpt_prompt_context": null,
-        "prefer_format": "{full_name}"
+        "prefer_format": "{tag}"
     }
 }
