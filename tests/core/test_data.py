@@ -180,7 +180,7 @@ class TestTagmark:
                 dict_items.append(json.loads(_line.strip()))
         assert len(dict_items) == 1
         assert dict_items[0]["url"] == self.tagmark_obj.tagmark_items[-1].url
-        
+
         os.unlink(output_path)
 
         # test condition and ban_condition==False
@@ -202,7 +202,7 @@ class TestTagmark:
         assert len(dict_items) == 2
         for _dict_item in dict_items:
             assert _dict_item["url"] != self.tagmark_obj.tagmark_items[-1].url
-        
+
         os.unlink(output_path)
 
 
