@@ -1,6 +1,9 @@
 from pathlib import Path
 
-from tagmark.tools.convert.diigo import ExportedChromeFormatConverter, ExportedCsvFormatConverter
+from tagmark.tools.convert.diigo import (
+    ExportedChromeFormatConverter,
+    ExportedCsvFormatConverter,
+)
 
 
 class TestExportedCsvFormatConverter:
@@ -10,12 +13,16 @@ class TestExportedCsvFormatConverter:
     def test_load_items(
         self,
     ):
-        for item in self.csv_format_converter.load_original_items(data_source=self.test_file):
+        for item in self.csv_format_converter.load_original_items(
+            data_source=self.test_file
+        ):
             assert item.get("url")
 
 
 class TestExportedChromeFormatConverter:
-    chrome_format_converter: ExportedChromeFormatConverter = ExportedChromeFormatConverter()
+    chrome_format_converter: ExportedChromeFormatConverter = (
+        ExportedChromeFormatConverter()
+    )
     test_file: Path = Path("tests/data/16400249_chrome_2023_04_18_b776d.html")
 
     def test_load_items(
