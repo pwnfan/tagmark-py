@@ -1,10 +1,10 @@
 from pathlib import Path
 
-from tagmark.tools.convert.diigo import ChromeConverter, CsvConverter
+from tagmark.tools.convert.diigo import ExportedChromeConverter, ExportedCsvConverter
 
 
-class TestCsvConverter:
-    csv_converter: CsvConverter = CsvConverter()
+class TestExportedCsvConverter:
+    csv_converter: ExportedCsvConverter = ExportedCsvConverter()
     test_file: Path = Path("tests/data/16400249_csv_2023_04_18_dc9ef.csv")
 
     def test_load_items(
@@ -14,8 +14,8 @@ class TestCsvConverter:
             assert item.get("url")
 
 
-class TestChromeConverter:
-    chrome_converter: ChromeConverter = ChromeConverter()
+class TestExportedChromeConverter:
+    chrome_converter: ExportedChromeConverter = ExportedChromeConverter()
     test_file: Path = Path("tests/data/16400249_chrome_2023_04_18_b776d.html")
 
     def test_load_items(

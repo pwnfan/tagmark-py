@@ -3,7 +3,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 from tagmark.core.tag import TagItem
-from tagmark.tools.convert import tagmark as tagmark_convert
+from tagmark.tools.convert import tagmark as convert_tagmark
 
 
 class DuplicatedTagFormattedNameError(Exception):
@@ -50,8 +50,8 @@ class TagsChecker:
     def __load_tagmark_data(
         self,
     ):
-        self.converter: tagmark_convert.JsonLinesConverter = (
-            tagmark_convert.JsonLinesConverter()
+        self.converter: convert_tagmark.JsonLinesConverter = (
+            convert_tagmark.JsonLinesConverter()
         )
 
         _items: list[dict] = self.converter.load_original_items(

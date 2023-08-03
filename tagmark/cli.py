@@ -11,8 +11,8 @@ from tagmark.core.convert import BaseConverter
 from tagmark.core.log import LogHandler, LogLevel, get_level_logger
 from tagmark.tools.autotagdef import AutoTagDefinitionMarker, AutoTagMakeStats
 from tagmark.tools.checktag import TagsChecker
-from tagmark.tools.convert import diigo
-from tagmark.tools.convert import tagmark as tagmark_convert
+from tagmark.tools.convert import diigo as convert_diigo
+from tagmark.tools.convert import tagmark as convert_tagmark
 from tagmark.tools.maketagdoc import TagDocMaker
 
 load_dotenv(dotenv_path=find_dotenv(usecwd=True))
@@ -56,8 +56,8 @@ def cli():
 @click.option(
     "-f",
     "--format",
-    type=click.Choice(["diigo_chrome", "tagmark_jsonlines"]),
-    default="diigo_chrome",
+    type=click.Choice(["diigo_exported_chrome", "tagmark_jsonlines"]),
+    default="diigo_exported_chrome",
     show_default=True,
     show_choices=True,
     help="format of the input file",
@@ -122,10 +122,10 @@ def convert(
 ):
     converter: BaseConverter = None
     match format:
-        case "diigo_chrome":
-            converter = diigo.ChromeConverter()
+        case "diigo_exported_chrome":
+            converter = convert_diigo.ExportedChromeConverter()
         case "tagmark_jsonlines":
-            converter = tagmark_convert.JsonLinesConverter()
+            converter = convert_tagmark.JsonLinesConverter()
         case _:
             raise ValueError(f"unsupported format: {format}")
     _items: list[dict] = converter.load_original_items(

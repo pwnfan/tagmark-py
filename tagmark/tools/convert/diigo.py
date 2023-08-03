@@ -8,8 +8,8 @@ from tagmark.core.convert import BaseConverter
 from tagmark.core.data import TagmarkItem
 
 
-class ChromeConverter(BaseConverter):
-    class ChromeParser(HTMLParser):
+class ExportedChromeConverter(BaseConverter):
+    class ExportedChromeParser(HTMLParser):
         def __init__(self):
             super().__init__()
             self.bookmarks = []
@@ -41,7 +41,7 @@ class ChromeConverter(BaseConverter):
 
     def load_original_items(self, data_source: Path) -> Iterable[dict]:
         with open(data_source, "r") as f:
-            _parser: self.ChromeParser = self.ChromeParser()
+            _parser: self.ExportedChromeParser = self.ExportedChromeParser()
             _parser.feed(f.read())
             return _parser.bookmarks
 
@@ -63,7 +63,7 @@ class ChromeConverter(BaseConverter):
 
 
 # TODO
-class CsvConverter(BaseConverter):
+class ExportedCsvConverter(BaseConverter):
     def load_original_items(self, data_source: Path) -> Iterable[dict]:
         with open(data_source, newline="") as csvfile:
             for _row in DictReader(csvfile):

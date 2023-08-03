@@ -9,7 +9,7 @@ from tqdm import tqdm
 from tagmark.core.data import TagmarkFilter
 from tagmark.core.log import LogHandler, LogLevel, get_level_logger
 from tagmark.core.tag import TagItem
-from tagmark.tools.convert import tagmark as tagmark_convert
+from tagmark.tools.convert import tagmark as convert_tagmark
 
 FormatterNamesInTemplate: Enum
 FormatExpressions: Enum
@@ -50,7 +50,7 @@ class TagDocMaker:
         self._is_ban_condition: bool = is_ban_condition
         self.url_base: str = url_base.rstrip("/")
 
-        self.converter: tagmark_convert.JsonLinesConverter
+        self.converter: convert_tagmark.JsonLinesConverter
         self.__load_tagmark_data()
 
         self.tag_infos: dict
@@ -68,8 +68,8 @@ class TagDocMaker:
     def __load_tagmark_data(
         self,
     ):
-        self.converter: tagmark_convert.JsonLinesConverter = (
-            tagmark_convert.JsonLinesConverter()
+        self.converter: convert_tagmark.JsonLinesConverter = (
+            convert_tagmark.JsonLinesConverter()
         )
 
         _items: list[dict] = self.converter.load_original_items(
