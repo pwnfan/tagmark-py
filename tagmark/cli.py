@@ -66,7 +66,7 @@ def cli():
     "-o",
     "--output-file-path",
     type=click.Path(exists=False, file_okay=True, dir_okay=False),
-    default="tagmark_ui_data.jsonl",
+    default="tagmarks.jsonl",
     show_default=True,
     help="output file path",
 )
