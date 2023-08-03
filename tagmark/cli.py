@@ -8,11 +8,13 @@ import click
 from dotenv import find_dotenv, load_dotenv
 
 from tagmark.core.convert import BaseConverter
+from tagmark.core.export import BaseExporter
 from tagmark.core.log import LogHandler, LogLevel, get_level_logger
 from tagmark.tools.autotagdef import AutoTagDefinitionMarker, AutoTagMakeStats
 from tagmark.tools.checktag import TagsChecker
 from tagmark.tools.convert import diigo as convert_diigo
 from tagmark.tools.convert import tagmark as convert_tagmark
+from tagmark.tools.export import diigo as export_diigo
 from tagmark.tools.maketagdoc import TagDocMaker
 
 load_dotenv(dotenv_path=find_dotenv(usecwd=True))
@@ -39,6 +41,76 @@ __logger.bind(scope="cli")
 @click.group(context_settings=dict(help_option_names=["-h", "--help"]))
 def cli():
     pass
+
+
+@cli.command(
+    name="export",
+    context_settings=dict(help_option_names=["-h", "--help"]),
+    help="export tagged bookmarked data from third party services into jsonlines file",
+)
+@click.option(
+    "-f",
+    "--format",
+    type=click.Choice(
+        [
+            "diigo_web",
+        ]
+    ),
+    default="diigo_web",
+    show_default=True,
+    show_choices=True,
+    help="third party service",
+)
+@click.option(
+    "-m",
+    "--max-sleep-seconds-between-requests",
+    type=click.FLOAT,
+    default=3,
+    show_default=True,
+    help="if multiple requests are needed to retrieve the data, in order to prevent excessive load on the target server, a random time sleep is necessary, this option set the maximum sleep seconds",
+)
+@click.option(
+    "-o",
+    "--output-file-path",
+    type=click.Path(exists=False, file_okay=True, dir_okay=False),
+    default="tagmarks.jsonl",
+    show_default=True,
+    help="output file path",
+)
+def export(
+    format: str,
+    max_sleep_seconds_between_requests: float,
+    output_file_path: str,
+):
+    exporter: BaseExporter = None
+    match format:
+        case "diigo_web":
+            exporter = export_diigo.WebExporter(
+                max_sleep_seconds_between_requests=max_sleep_seconds_between_requests
+            )
+            _cookie = os.environ.get("DIIGO_COOKIE", "")
+            try:
+                exporter.export(cookie=_cookie)
+            except Exception:
+                __logger.error(
+                    msg="export data failed",
+                    exc_info=True,
+                )
+        case _:
+            raise ValueError(f"unsupported format: {format}")
+
+    output_file_path: Path = Path(output_file_path)
+    exporter.dump_to_json_lines(output_path=output_file_path)
+    if output_file_path.exists():
+        __logger.info(
+            msg="data has been exported",
+            counts_exported_items=len(exporter.items),
+            output_file_path=output_file_path.absolute(),
+        )
+    else:
+        __logger.warn(
+            msg="no data has been exported",
+        )
 
 
 @cli.command(
