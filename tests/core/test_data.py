@@ -146,7 +146,7 @@ class TestTagmark:
             for _k in TagmarkItem.__annotations__.keys():
                 assert _k in _dict_item.keys()
 
-        os.remove(output_path)
+        os.unlink(output_path)
 
         # test keep_empty_keys==False
         output_path: Path = Path(f"/tmp/tagit_test_{time.time()}.jsonl")
@@ -160,7 +160,7 @@ class TestTagmark:
                 dict_items.append(json.loads(_line.strip()))
         assert "github_repo_info" not in dict_items[-1].keys()
 
-        os.remove(output_path)
+        os.unlink(output_path)
 
         # test condition and ban_condition==True
         output_path: Path = Path(f"/tmp/tagit_test_{time.time()}.jsonl")
@@ -180,6 +180,8 @@ class TestTagmark:
                 dict_items.append(json.loads(_line.strip()))
         assert len(dict_items) == 1
         assert dict_items[0]["url"] == self.tagmark_obj.tagmark_items[-1].url
+        
+        os.unlink(output_path)
 
         # test condition and ban_condition==False
         output_path: Path = Path(f"/tmp/tagit_test_{time.time()}.jsonl")
@@ -200,6 +202,8 @@ class TestTagmark:
         assert len(dict_items) == 2
         for _dict_item in dict_items:
             assert _dict_item["url"] != self.tagmark_obj.tagmark_items[-1].url
+        
+        os.unlink(output_path)
 
 
 class TestTagmarkFilter:
