@@ -327,8 +327,8 @@ def check_tag(
                     ensure_ascii=False,
                 )
                 __logger.info(
-                    msg="new tags definition file has been generated",
-                    new_tags_definition_file=new_tags_json_file.absolute(),
+                    msg="new tags information file has been generated",
+                    new_tags_information_file=new_tags_json_file.absolute(),
                 )
 
 
@@ -365,7 +365,7 @@ def check_tag(
     type=int,
     default=60,
     show_default=True,
-    help="the timeout that GPT answers one question(get one tag definition)",
+    help="the timeout that GPT answers one question (get one tag definition)",
 )
 @click.option(
     "-l",
