@@ -73,7 +73,7 @@ def cli():
     "-o",
     "--output-file-path",
     type=click.Path(exists=False, file_okay=True, dir_okay=False),
-    default="tagmarks.jsonl",
+    default="diigo_web_exported.jsonl",
     show_default=True,
     help="output file path",
 )
