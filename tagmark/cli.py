@@ -128,8 +128,10 @@ def export(
 @click.option(
     "-f",
     "--format",
-    type=click.Choice(["diigo_exported_chrome_format", "tagmark_jsonlines"]),
-    default="diigo_exported_chrome_format",
+    type=click.Choice(
+        ["diigo_web_exported", "diigo_exported_chrome_format", "tagmark_jsonlines"]
+    ),
+    default="diigo_web_exported",
     show_default=True,
     show_choices=True,
     help="format of the input file",
@@ -194,6 +196,8 @@ def convert(
 ):
     converter: BaseConverter = None
     match format:
+        case "diigo_web_exported":
+            converter = convert_diigo.WebExportedJsonlinesConverter()
         case "diigo_exported_chrome_format":
             converter = convert_diigo.ExportedChromeFormatConverter()
         case "tagmark_jsonlines":

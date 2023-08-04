@@ -3,6 +3,7 @@ from pathlib import Path
 from tagmark.tools.convert.diigo import (
     ExportedChromeFormatConverter,
     ExportedCsvFormatConverter,
+    WebExportedJsonlinesConverter,
 )
 
 
@@ -43,3 +44,30 @@ class TestExportedChromeFormatConverter:
             assert _tagmark_item.time_added
         assert self.chrome_format_converter.tagmark.tagmark_items[1].comment
         assert self.chrome_format_converter.tagmark.tagmark_items[1].title
+
+
+class TestWebExportedJsonlinesConverter:
+    web_exported_jsonlines_converter: WebExportedJsonlinesConverter = (
+        WebExportedJsonlinesConverter()
+    )
+    test_file: Path = Path("tests/data/diigo_web_exported.jsonl")
+
+    def test_load_items(
+        self,
+    ):
+        for item in self.web_exported_jsonlines_converter.load_original_items(
+            data_source=self.test_file
+        ):
+            assert item.get("url")
+
+    def test_convert(self):
+        items: list[dict] = self.web_exported_jsonlines_converter.load_original_items(
+            data_source=self.test_file
+        )
+        self.web_exported_jsonlines_converter.convert_to_tagmark(items=items)
+        for (
+            _tagmark_item
+        ) in self.web_exported_jsonlines_converter.tagmark.tagmark_items:
+            assert _tagmark_item.url
+            assert _tagmark_item.time_added
+        assert self.web_exported_jsonlines_converter.tagmark.tagmark_items[1].title
