@@ -37,9 +37,16 @@ __logger = get_level_logger(
 )
 __logger.bind(scope="cli")
 
-    
+
+class NaturalOrderGroup(click.Group):
+    def list_commands(self, ctx):
+        return self.commands.keys()
+
+
 @click.group(
-    context_settings=dict(help_option_names=["-h", "--help"]),)
+    cls=NaturalOrderGroup,
+    context_settings=dict(help_option_names=["-h", "--help"]),
+)
 def cli():
     pass
 
