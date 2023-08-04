@@ -89,6 +89,11 @@ def export(
                 max_sleep_seconds_between_requests=max_sleep_seconds_between_requests
             )
             _cookie = os.environ.get("DIIGO_COOKIE", "")
+            if not _cookie.strip():
+                __logger.error(
+                    msg="Diigo web Cookie is missing, please specify it as DIIGO_COOKIE in the .env file or in shell environment variable"
+                )
+                raise ValueError(f"Cookie value: {_cookie}")
             try:
                 exporter.export(cookie=_cookie)
             except Exception:
