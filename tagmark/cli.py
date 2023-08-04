@@ -404,7 +404,7 @@ def auto_tag_def(
         _new_tag_definitions,
         _auto_tag_make_stats,
     ) = _auto_tag_def_maker.auto_define_tags(
-        tag_definitions=_tags_info,
+        tag_infos=_tags_info,
         little_info_tag_is_ok=little_info_tag_is_ok,
     )
     if _new_tag_definitions:
@@ -417,7 +417,7 @@ def auto_tag_def(
     for _tag, _definition in _new_tag_definitions.items():
         new_tags_info[_tag]["definition"] = _definition
 
-    # write new tag definitions into file
+    # write new tag infos into file
     new_tags_info_json_path: Path = _tags_info_json_path.parent.joinpath(
         f"new-{datetime.now().strftime('%Y%m%d%H%M%S')}-{_tags_info_json_path.name}"
     )
