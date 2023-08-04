@@ -27,7 +27,7 @@ class FormatterType(Enum):
 class TagDocMaker:
     def __init__(
         self,
-        tagmark_data_json_path: Path,
+        tagmark_jsonlines_data_path: Path,
         tags_json_path: Path,
         config_path: Path,
         url_base: str,
@@ -43,7 +43,7 @@ class TagDocMaker:
         )
         self._logger.bind(scope="TagDocMaker")
 
-        self._tagmark_data_json_path: Path = tagmark_data_json_path
+        self._tagmark_jsonlines_data_path: Path = tagmark_jsonlines_data_path
         self._tags_json_path: Path = tags_json_path
         self._config_path: Path = config_path
         self._condition_json_path: Path = condition_json_path
@@ -73,7 +73,7 @@ class TagDocMaker:
         )
 
         _items: list[dict] = self.converter.load_original_items(
-            data_source=self._tagmark_data_json_path
+            data_source=self._tagmark_jsonlines_data_path
         )
         self.converter.convert_to_tagmark(items=_items)
 

@@ -9,7 +9,7 @@ class TestTagsChecker:
     @pytest.fixture(autouse=True)
     def setup(cls, test_input_file_paths):
         cls.tags_checker: TagsChecker = TagsChecker(
-            tagmark_data_json_path=test_input_file_paths["tagmark_data_json"],
+            tagmark_jsonlines_data_path=test_input_file_paths["tagmark_jsonlines_data"],
             tags_json_path=test_input_file_paths["tags_json"],
             condition_json_path=test_input_file_paths["condition_json"],
         )

@@ -9,7 +9,7 @@ load_dotenv()
 @pytest.fixture(scope="session")
 def test_input_file_paths() -> dict[str:Path]:
     return {
-        "tagmark_data_json": Path(
+        "tagmark_jsonlines_data": Path(
             "tests/data/tagmark_ui_data_1682298863.158216.jsonl"
         ).absolute(),
         "tags_json": Path("tests/data/tags.json").absolute(),

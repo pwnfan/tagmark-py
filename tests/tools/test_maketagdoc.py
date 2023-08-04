@@ -10,7 +10,7 @@ class TestTagDocMaker:
     @pytest.fixture(autouse=True)
     def setup(cls, test_input_file_paths):
         cls.tag_doc_maker: TagDocMaker = TagDocMaker(
-            tagmark_data_json_path=test_input_file_paths["tagmark_data_json"],
+            tagmark_jsonlines_data_path=test_input_file_paths["tagmark_jsonlines_data"],
             tags_json_path=test_input_file_paths["tags_json"],
             config_path=Path("tagmark/tools/maketagdoc.toml.default").absolute(),
             url_base="https://pwnfan.github.io/tagmark/",

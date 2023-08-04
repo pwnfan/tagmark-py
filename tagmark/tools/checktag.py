@@ -35,11 +35,11 @@ class TagsCheckResult:
 class TagsChecker:
     def __init__(
         self,
-        tagmark_data_json_path: Path,
+        tagmark_jsonlines_data_path: Path,
         tags_json_path: Path,
         condition_json_path: Path | None = None,
     ):
-        self._tagmark_data_json_path: Path = tagmark_data_json_path
+        self._tagmark_jsonlines_data_path: Path = tagmark_jsonlines_data_path
         self._tags_json_path: Path = tags_json_path
         self._condition_json_path: Path = condition_json_path
 
@@ -55,7 +55,7 @@ class TagsChecker:
         )
 
         _items: list[dict] = self.converter.load_original_items(
-            data_source=self._tagmark_data_json_path
+            data_source=self._tagmark_jsonlines_data_path
         )
         self.converter.convert_to_tagmark(items=_items)
         self.tags_in_data_source = self.converter.tagmark.all_tags
