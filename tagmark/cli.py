@@ -471,7 +471,12 @@ def auto_tag_def(
     help="(formatter) configuration file path",
 )
 @click.option(
-    "-u", "--url-base", type=str, help="url base for generating formatted links"
+    "-u",
+    "--url-base",
+    type=str,
+    default="./",
+    show_default=True,
+    help="url base for generating formatted links",
 )
 @click.option(
     "-c",
