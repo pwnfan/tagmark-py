@@ -30,7 +30,7 @@ class TagDocMaker:
         tagmark_jsonlines_data_path: Path,
         tags_json_path: Path,
         config_path: Path,
-        url_base: str,
+        url_base: str = "./",
         condition_json_path: Path | None = None,
         is_ban_condition: bool = True,
     ):
@@ -48,7 +48,7 @@ class TagDocMaker:
         self._config_path: Path = config_path
         self._condition_json_path: Path = condition_json_path
         self._is_ban_condition: bool = is_ban_condition
-        self.url_base: str = url_base.rstrip("/")
+        self.url_base: str = url_base
 
         self.converter: convert_tagmark.JsonLinesConverter
         self.__load_tagmark_data()

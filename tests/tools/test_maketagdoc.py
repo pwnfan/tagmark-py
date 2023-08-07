@@ -13,7 +13,7 @@ class TestTagDocMaker:
             tagmark_jsonlines_data_path=test_input_file_paths["tagmark_jsonlines_data"],
             tags_json_path=test_input_file_paths["tags_json"],
             config_path=Path("tagmark/tools/maketagdoc.toml.default").absolute(),
-            url_base="https://pwnfan.github.io/tagmark/",
+            url_base="https://pwnfan.github.io/tagmark",
             condition_json_path=test_input_file_paths["condition_json"],
             is_ban_condition=True,
         )
