@@ -1,6 +1,6 @@
 name: test
 
-on: pull_request
+on: [push, pull_request]
 
 jobs:
   linting:
@@ -62,7 +62,20 @@ jobs:
         run: |
           source .venv/bin/activate
           echo 'GITHUB_TOKEN=${{ github.token }}' >> .env
-          poetry run pytest -v --cov=tagmark tests
+          poetry run pytest -v --cov=tagmark --cov-report=xml tests 
+
+      - name: Upload Coverage Reports To Codecov
+        uses: codecov/codecov-action@v3
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        with:
+          files: ./coverage.xml
+
+      - name: Upload Coverage Reports To Codacy
+        uses: codacy/codacy-coverage-reporter-action@v1
+        with:
+          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          coverage-reports: ./coverage.xml
 
       - name: Test Run tagmark From Source Code
         run: |
