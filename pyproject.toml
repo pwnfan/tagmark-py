@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "tagmark"
-version = "0.3.0"
+version = "0.1.0"
 description = "TagMark is a tag based bookmark solution for intensive github users. This tool tagmark (python) is the data processing part of TagMark solution."
 authors = ["pwnfan <pwnfan@proton.me>"]
 readme = "docs/README.md"
@@ -17,7 +17,7 @@ revchatgpt = "^6.8.6"
 dacite = "^1.8.1"
 fake-useragent = "^1.2.1"
 requests-mock = "^1.11.0"
-
+# tagmark-ui = "1.0.0" # frontend project, not python project
 
 [tool.poetry.group.test.dependencies]
 pytest = "^7.3.1"
