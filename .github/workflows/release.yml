@@ -1,4 +1,4 @@
-name: release
+name: Release & Upload To PyPI
 
 on:
   push:
