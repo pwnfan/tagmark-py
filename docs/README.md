@@ -3,6 +3,8 @@
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/tagmark)
 [![codecov](https://codecov.io/gh/pwnfan/tagmark-py/branch/main/graph/badge.svg?token=KKNE7A09N5)](https://codecov.io/gh/pwnfan/tagmark-py)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/80e261999e2445f4b825e646cb41b1a5)](https://app.codacy.com/gh/pwnfan/tagmark-py/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+[![release](https://github.com/pwnfan/tagmark-py/actions/workflows/release.yml/badge.svg)](https://github.com/pwnfan/tagmark-py/actions/workflows/release.yml)
+[![test](https://github.com/pwnfan/tagmark-py/actions/workflows/test.yml/badge.svg)](https://github.com/pwnfan/tagmark-py/actions/workflows/test.yml)
 ![Twitter Follow](https://img.shields.io/twitter/follow/pwnfan)
 
 - [1. Introduction, User Guide and the Demo Page](#1-introduction-user-guide-and-the-demo-page)
