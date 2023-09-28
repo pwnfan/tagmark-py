@@ -201,7 +201,7 @@ class Tagmark:
                 try:
                     _tagmark_item.get_github_repo_info(access_token=access_token)
                 except InvalidGithubAccessTokenError as err:
-                    self.logger.error(url=_tagmark_item.url, msg=err, exc_info=True)
+                    self._logger.error(url=_tagmark_item.url, msg=err, exc_info=True)
                     raise
                 except GithubRepoNotFoundError as err:
                     self._logger.warning(url=_tagmark_item.url, msg=err, exc_info=True)
