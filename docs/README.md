@@ -172,7 +172,7 @@ Steps note and customizing suggestions:
         * `${{ secrets.GH_PAT_TAGMARK }}`
         * `${{ vars.TAGMARK_DATA_EXPIRED_HOURS }}`
     * #8: trigger when `tagmark-ui` has new commit
-      * [tagmark-ui/.github/workflows/github-page-update.yml](https://github.com/pwnfan/tagmark-ui/blob/main/.github/workflows/github-page-update.yml): used to notify repo `my-tagmarks` of the `tagmark-ui` code updates, if you do not need this feature, you can disable it and skip setting repo `vars` and `secrets`
+      * [tagmark-ui/.github/workflows/notify-updates.yml](https://github.com/pwnfan/tagmark-ui/blob/main/.github/workflows/notify-updates.yml): used to notify repo `my-tagmarks` of the `tagmark-ui` code updates, if you do not need this feature, you can disable it and skip setting repo `vars` and `secrets`
         * `${{ secrets.GH_PAT_TAGMARK }}`
         * `${{ vars.GH_PAGES_REPO }}`
       * [my-tagmarks/.github/workflows/update-tagmark-ui.yml](https://github.com/pwnfan/my-tagmarks/blob/main/.github/workflows/update-tagmark-ui.yml): used to receive the notify from `tagmark-ui` and synchronize the `tagmark-ui` code into `my-tagmarks`, if you do not need this feature, you can disable it and skip setting repo `vars` and `secrets`
